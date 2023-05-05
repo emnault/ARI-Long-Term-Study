@@ -75,6 +75,7 @@ class DefaultWeb {
 let default_web = new DefaultWeb();
 window.ariNumPairs = 0;
 window.userNumPairs = 0;
+// document.getElementById("next").disabled = true;
 
 // window.onload = function() {
 //     var getInput = prompt("Hey type something here: ");
@@ -89,13 +90,69 @@ window.userNumPairs = 0;
 // Add event listeners
 $(document).ready(function() {
   default_web.firstFrase();
+
+  document.getElementById("user-score").innerHTML = "You: " + localStorage.getItem('userNumPairs') + " pairs.";
+  document.getElementById("ari-score").innerHTML = "ARI: " + localStorage.getItem('ariNumPairs') + " pairs.";
+
+  
+  
   // $("#back").on("touchend", function(){
   //   window.open("../pre_ratings_mem_game/index.html", "_self");
   // });
   $("#next").on("touchend", function(){
-    window.open("../scores_card_matching/index.html", "_self");
+   // parent.switchConfig("memory_game");
+   //window.open("../playing_cards_mem_game/index.html", "_self");
 
-  });
+
+   /*
+----------------- POP-UP FUNCTION ------------------
+  */
+   (function(){  
+ 
+
+    var Memory = {
+
+      init2: function(){
+      	this.win();
+      },
+
+      init: function(){
+        this.$modal = $(".modal");
+        this.$overlay = $(".modal-overlay");
+        this.win();
+      },
+
+
+      win: function(){
+        setTimeout(function(){
+          //default_web.secondFrase();
+          Memory.showModal();
+          //Memory.$game.fadeOut();
+        }, 1000);
+      },
+
+      showModal: function(){
+        console.log("IN SHOW MODAL");
+        
+        // default_web.secondFrase();
+        this.$overlay.show();
+        this.$modal.fadeIn("slow");
+        localStorage.clear();
+      },
+
+      hideModal: function(){
+        this.$overlay.hide();
+        this.$modal.hide();
+      }
+
+    }; //close of Memory variable
+    
+    Memory.init2();
+
+  })();
+
+
+  }); 
 });
 
 /*
@@ -123,8 +180,8 @@ $(document).ready(function() {
 
 		init: function(cardsHeart,cardsDiamond){
 			this.$game = $(".game");
-			this.$modal = $(".modal");
-			this.$overlay = $(".modal-overlay");
+			// this.$modal = $(".modal");
+			// this.$overlay = $(".modal-overlay");
 			this.$restartButton = $("button.restart");
 			this.cardsArray = $.merge(cardsHeart, cardsDiamond);
 			this.shuffleCards(this.cardsArray);			
@@ -469,26 +526,26 @@ $(document).ready(function() {
 				//localStorage.clear();
 				localStorage.setItem('ariNumPairs', ariNumPairs);
 				localStorage.setItem('userNumPairs', userNumPairs);
-
+				document.getElementById("next").disabled = false;
                 default_web.winFrase();
-				// Memory.showModal();
-				// Memory.$game.fadeOut();
+				Memory.showModal();
+				Memory.$game.fadeOut();
 			}, 1000);
 		},
 
-		showModal: function(){
-			this.$overlay.show();
-			this.$modal.fadeIn("slow");
-		},
+		// showModal: function(){
+		// 	this.$overlay.show();
+		// 	this.$modal.fadeIn("slow");
+		// },
 
-		hideModal: function(){
-			this.$overlay.hide();
-			this.$modal.hide();
-		},
+		// hideModal: function(){
+		// 	this.$overlay.hide();
+		// 	this.$modal.hide();
+		// },
 
 		reset: function(){
 			localStorage.clear();
-			this.hideModal();
+			// this.hideModal();
 			this.shuffleCards(this.cardsArray);
 			this.setup();
 			this.$game.show("slow");

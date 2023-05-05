@@ -27,7 +27,7 @@ class DefaultWeb {
         // Respond
         this.tts_action.sendGoal({
             rawtext: {
-                text: "<mark name='doTrick trickName=show_right'/>Use the following rating scale to rate how well you did.", 
+                text: "<mark name='doTrick trickName=show_right'/>Here is our performance scores.", 
                 lang_id: "en_GB"
             }
         }, (response) => {
@@ -73,17 +73,7 @@ $(document).ready(function() {
   document.getElementById("user-score").innerHTML = "You: " + localStorage.getItem('userNumPairs') + " pairs.";
   document.getElementById("ari-score").innerHTML = "ARI: " + localStorage.getItem('ariNumPairs') + " pairs.";
 
-
-  // Add event listeners
-  $("#next").on("touchend", function(){
-   // parent.switchConfig("memory_game");
-   //window.open("../playing_cards_mem_game/index.html", "_self");
-
-
-   /*
------------------ POP-UP FUNCTION ------------------
-  */
-   (function(){  
+  (function(){  
  
 
     var Memory = {
@@ -124,12 +114,23 @@ $(document).ready(function() {
 
   })();
 
-
-  }); 
-
-  $("#back").on("touchend", function(){
+  // Add event listeners
+  // $("#next").on("touchend", function(){
    // parent.switchConfig("memory_game");
-   window.open("../playing_cards_mem_game/index.html", "_self");
-  });
+   //window.open("../playing_cards_mem_game/index.html", "_self");
+
+
+   /*
+----------------- POP-UP FUNCTION ------------------
+  */
+   
+
+
+  // }); 
+
+  // $("#back").on("touchend", function(){
+  //  // parent.switchConfig("memory_game");
+  //  window.open("../playing_cards_mem_game/index.html", "_self");
+  // });
 });
 
