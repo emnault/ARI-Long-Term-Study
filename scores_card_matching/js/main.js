@@ -69,9 +69,9 @@ $(document).ready(function() {
 
   // console.log("Alert - ari score thrown");
 
-  
-  document.getElementById("user-score").innerHTML = "You: " + localStorage.getItem('userNumPairs') + " pairs.";
   document.getElementById("ari-score").innerHTML = "ARI: " + localStorage.getItem('ariNumPairs') + " pairs.";
+  document.getElementById("user-score").innerHTML = "You: " + localStorage.getItem('userNumPairs') + " pairs.";
+  document.getElementById("reac-time").innerHTML = "Your reaction time: " + localStorage.getItem('reacTime') + " seconds.";
 
   (function(){  
  

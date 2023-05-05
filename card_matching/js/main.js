@@ -75,20 +75,15 @@ class DefaultWeb {
 let default_web = new DefaultWeb();
 window.ariNumPairs = 0;
 window.userNumPairs = 0;
-
-// window.onload = function() {
-//     var getInput = prompt("Hey type something here: ");
-//     localStorage.setItem("storageName",getInput);
-// }
-
-
-
+window.reacTime = 0; //reaction time - time it takes to select the pair of cards
 
 
 
 // Add event listeners
 $(document).ready(function() {
   default_web.firstFrase();
+
+
   // $("#back").on("touchend", function(){
   //   window.open("../pre_ratings_mem_game/index.html", "_self");
   // });
@@ -106,20 +101,16 @@ $(document).ready(function() {
 	var ariMatch = 0; //add until reach threshold, where ARI will pick a correct pair
 	var speakYes = true;
 	var speakNiceOne = true;
-	// exports.uppercase = (str) => str.toUpperCase()
-
-
-	// exports.ariNumPairs = 0;
-	// exports.userNumPairs = 0;
-
-	// var ariNumPairs = 0;
-	// var userNumPairs = 0;
-	// export { ariNumPairs };
+	//for reaction time calculations
+	var rt_list = [];
+	var initRT;
+	var start = new Date();
+	var end = new Date();
+	var rt1 = 0;
+	var rt2 = 0;
+	
 	
 	var Memory = {
-
-		//this.ids = [1,2,3,4,5,6,7,8,9,10,11,22,33,44,55,66,77,88,99,110]; 
-
 
 		init: function(cardsHeart,cardsDiamond){
 			this.$game = $(".game");
@@ -148,26 +139,27 @@ $(document).ready(function() {
 			this.$memoryCards.on("click", this.cardClicked);
 			this.$restartButton.on("click", $.proxy(this.reset, this));
 
-			console.log("TESTING1");
 			var str1 = JSON.stringify(this.$memoryCards);
-			console.log(str1);
-			console.log("TESTING FINISHED1");
+			// console.log(str1);
 
-			// this.link = this.$memoryCards.getElementById('6');
-			// link.click();
-
+			//reaction time starting value after ARI speaks
+			this.sleep(2500).then(() => { 
+				start = new Date();
+				rt1 = start.getTime();
+			});
 		},
+
 		// kinda messy but hey
 		cardClicked: function(){
 			var _ = Memory; //Why is this here...saving instance of game?
 			var $card = $(this);
 
-			console.log("TESTING");
+			// console.log("TESTING");
 			var str1 = JSON.stringify($(this).attr("data-id"));
-			console.log("data-id: " + str1);
+			// console.log("data-id: " + str1);
 			var str2 = JSON.stringify($(this));
-			console.log("$card: " + str2);
-			console.log("TESTING FINISHED");
+			// console.log("$card: " + str2);
+			// console.log("TESTING FINISHED");
 
 			//If game hasn't been won, it does not have a match, and it hasn't been picked
 			if(!_.paused && !$card.find(".inside").hasClass("matched") && !$card.find(".inside").hasClass("picked")){
@@ -180,36 +172,24 @@ $(document).ready(function() {
 				} 
 				//If the id matches the guess's id and (the second card?) hasn't been picked yet
 				else if((_.guess == parseInt($(this).attr("data-id"))*11 || _.guess == parseInt($(this).attr("data-id"))/11 )&& !$(this).hasClass("picked")){
+					end = new Date();
+					rt2 = end.getTime();
+					// console.log("rt2 match: " + rt2);
+					initRT = rt2-rt1;
+					rt_list.push(initRT);
+					console.log("RT List: " + rt_list);
 					//the card is a match, add match attribute
 					$(".picked").addClass("matched");
 					if(speakNiceOne == true){
-						// _.sleep(1000).then(() => { 
 						default_web.thirdFrase();
 						console.log("Nice One");
-						speakNiceOne = false;
-						// });
-						
+						speakNiceOne = false;						
 					}
 					else if(speakNiceOne == false){
 						speakNiceOne = true;
 					}
 					
-					// Remove ids from array
-					// remove this id from the list of possible matches by removing the element of the array with splice
-					// console.log("Card 1: ");
-					// var str1 = JSON.stringify(parseInt($(this).attr("data-id")));
-					// console.log(str1);
-
 					ids.splice(ids.indexOf(parseInt($(this).attr("data-id"))), 1);
-					// console.log("ID Array after splicing card 1: ");
-					// var str2 = JSON.stringify(ids);
-					// console.log(str2);
-
-					// console.log("Card 2: ");
-					// var str3 = JSON.stringify(_.guess);
-					// console.log(str3);
-
-
 					ids.splice(ids.indexOf(_.guess), 1);
 					
 					console.log("ID Array after splicing card 2: ");
@@ -225,24 +205,20 @@ $(document).ready(function() {
 				} 
 				//Otherwise, cards are not a match, so reset & switch player's turn
 				else {
+					end = new Date();
+					rt2 = end.getTime();
+					// console.log("rt2 no match: " + rt2);
+					initRT = rt2-rt1;
+					rt_list.push(initRT);
+					console.log("RT List: " + rt_list);
 					_.guess = null;
 					_.paused = true;
 
 					_.sleep(1500).then(() => { 
-						console.log("Waiting to flip back over");
+						// Waiting to flip back over
 						$(".picked").removeClass("picked");
 						Memory.paused = false;
 					});
-					// setTimeout(function(){
-					// 	$(".picked").removeClass("picked");
-					// 	Memory.paused = false;
-					// }, 600); //was 600
-
-					// _.sleep(1500).then(() => { 
-					// 	picked1.removeClass("picked");
-					// 	picked2.removeClass("picked");
-					// 	console.log("REMOVED PICK");
-					// });
 
 					if(ariMatch < 3){
 						_.ariIncorrectPair();
@@ -271,7 +247,6 @@ $(document).ready(function() {
 
 			//If there's only one pair left, have ARI choose that pair (by executing correct pair method)
 			if(ids.length == 2){
-				console.log("FINAL PAIR - EXECUTING");
 				_.ariCorrectPair();
 				return;
 			}
@@ -296,45 +271,24 @@ $(document).ready(function() {
 			var cardOneStr = startStr.concat(card1ToStr, endStr);
 			var cardTwoStr = startStr.concat(card2ToStr, endStr);
 
-			// var card1Str = '[data-id="' + ids[randIdx1].toString(); + '"]';
-			// var card2Str = '[data-id="' + ids[randIdx2].toString(); + '"]';
-
-			console.log("card1Str: ");
-			console.log(cardOneStr);
-			console.log("card2Str: ");
-			console.log(cardTwoStr);
-
-
-
 			//When card is match
-			// console.log("SLEEPING1");
 			_.sleep(2000).then(() => { 
-
-				// console.log("FINISHED SLEEPING1!");
 				card1 = $(cardOneStr);
 				picked1 = card1.find(".inside").addClass("picked");
-				// console.log("CARD 1 flipped");
 
 				_.sleep(1000).then(() => { 
-
-					// console.log("FINISHED SLEEPING2!");
 					card2 = $(cardTwoStr);
 					picked2 = card2.find(".inside").addClass("picked");
-					// console.log("CARD 2 flipped");
 
-					// picked1.addClass("matched");
-					// picked2.addClass("matched");
-					// console.log("MATCHED");
 					_.sleep(1500).then(() => { 
 						picked1.removeClass("picked");
 						picked2.removeClass("picked");
-						console.log("REMOVED PICK");
+						start = new Date();
+						rt1 = start.getTime();
+						console.log("RT START");
 					});
-
 				});
-
 			});
-
 			ariMatch ++;
 			
 		},
@@ -378,47 +332,27 @@ $(document).ready(function() {
 			var cardOneStr = startStr.concat(card1ToStr, endStr);
 			var cardTwoStr = startStr.concat(card2ToStr, endStr);
 
-			// var card1Str = '[data-id="' + ids[randIdx1].toString(); + '"]';
-			// var card2Str = '[data-id="' + ids[randIdx2].toString(); + '"]';
-
-			console.log("card1Str: ");
-			console.log(cardOneStr);
-			console.log("card2Str: ");
-			console.log(cardTwoStr);
-
-
-
+		
 			//When card is match
-			console.log("SLEEPING1");
 			_.sleep(2000).then(() => { 
-
-				console.log("FINISHED SLEEPING1!");
 				card1 = $(cardOneStr);
 				picked1 = card1.find(".inside").addClass("picked");
-				console.log("CARD 1 flipped");
 
 				_.sleep(1000).then(() => { 
-
-					console.log("FINISHED SLEEPING2!");
 					card2 = $(cardTwoStr);
 					picked2 = card2.find(".inside").addClass("picked");
-					console.log("CARD 2 flipped");
 
 					picked1.addClass("matched");
 					picked2.addClass("matched");
-					console.log("MATCHED");
 
 					ids.splice(ids.indexOf(parseInt(card1.attr("data-id"))), 1);
 					ids.splice(ids.indexOf(parseInt(card2.attr("data-id"))), 1);
 					
-					console.log("ID Array after splicing: ");
 					var str4 = JSON.stringify(ids);
-					console.log(str4);
 
 
 					//ARI got a pair correct, so gets to try again, but will get it incorrect this time
 					_.sleep(1000).then(() => { 
-
 						//Just added this if/else, need to check if it works
 						if(ids.length == 0){
 							_.win();
@@ -435,7 +369,6 @@ $(document).ready(function() {
 			if(speakYes == true){
 				_.sleep(3000).then(() => { 
 					default_web.secondFrase();
-					console.log("Yes");
 					speakYes = false;
 				});
 				
@@ -466,7 +399,16 @@ $(document).ready(function() {
 				var strUser = JSON.stringify(window.userNumPairs);
 				console.log(strUser);
 
+				// _.calcAvgRT();
 				//localStorage.clear();
+
+				//Calculate avg reaction time
+				var averageRT = rt_list.reduce((a, b) => a + b, 0) / rt_list.length;
+				averageRT = averageRT/1000; //convert ms to seconds
+				var finalAvgRT = averageRT.toFixed(2); //cut to 2 decimal places
+				console.log("Avg RT: " + finalAvgRT + " seconds.");
+				localStorage.setItem('reacTime', finalAvgRT);
+
 				localStorage.setItem('ariNumPairs', ariNumPairs);
 				localStorage.setItem('userNumPairs', userNumPairs);
 
@@ -475,6 +417,11 @@ $(document).ready(function() {
 				// Memory.$game.fadeOut();
 			}, 1000);
 		},
+
+		// calcAvgRT: function(){
+			
+
+		// },
 
 		showModal: function(){
 			this.$overlay.show();
