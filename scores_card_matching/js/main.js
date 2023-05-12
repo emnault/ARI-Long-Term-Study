@@ -71,7 +71,7 @@ $(document).ready(function() {
 
   document.getElementById("ari-score").innerHTML = "ARI: " + localStorage.getItem('ariNumPairs') + " pairs.";
   document.getElementById("user-score").innerHTML = "You: " + localStorage.getItem('userNumPairs') + " pairs.";
-  document.getElementById("reac-time").innerHTML = "Your reaction time: " + localStorage.getItem('reacTime') + " seconds.";
+  document.getElementById("reac-time").innerHTML = " Your average reaction time: " + localStorage.getItem('reacTime') + " seconds.";
 
   (function(){  
  

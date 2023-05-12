@@ -83,15 +83,24 @@ window.reacTime = 0; //reaction time - time it takes to select the pair of cards
 $(document).ready(function() {
   default_web.firstFrase();
 
+  var flip1 = document.getElementById('flip1');
+  flip1.setAttribute('src', 'flip-card-1.mp3'); 
+  var flip2 = document.getElementById('flip2');
+  flip2.setAttribute('src', 'flip-card-2.mp3'); 
+
+  
+
 
   // $("#back").on("touchend", function(){
   //   window.open("../pre_ratings_mem_game/index.html", "_self");
   // });
+  
   $("#next").on("touchend", function(){
     window.open("../scores_card_matching/index.html", "_self");
 
   });
 });
+
 
 /*
 ----------------- GAME FUNCTION ------------------
@@ -165,6 +174,7 @@ $(document).ready(function() {
 			if(!_.paused && !$card.find(".inside").hasClass("matched") && !$card.find(".inside").hasClass("picked")){
 				//add picked attribute to card
 				$card.find(".inside").addClass("picked");
+				flip1.play();
 				//If guess hasn't been made yet
 				if(!_.guess){
 					//add id to the guess variable
@@ -178,8 +188,11 @@ $(document).ready(function() {
 					initRT = rt2-rt1;
 					rt_list.push(initRT);
 					console.log("RT List: " + rt_list);
+
+					flip2.play();
 					//the card is a match, add match attribute
 					$(".picked").addClass("matched");
+					_.sleep(1000).then(() => { 
 					if(speakNiceOne == true){
 						default_web.thirdFrase();
 						console.log("Nice One");
@@ -188,6 +201,7 @@ $(document).ready(function() {
 					else if(speakNiceOne == false){
 						speakNiceOne = true;
 					}
+					});
 					
 					ids.splice(ids.indexOf(parseInt($(this).attr("data-id"))), 1);
 					ids.splice(ids.indexOf(_.guess), 1);
@@ -211,6 +225,7 @@ $(document).ready(function() {
 					initRT = rt2-rt1;
 					rt_list.push(initRT);
 					console.log("RT List: " + rt_list);
+					flip2.play();
 					_.guess = null;
 					_.paused = true;
 
@@ -275,10 +290,12 @@ $(document).ready(function() {
 			_.sleep(2000).then(() => { 
 				card1 = $(cardOneStr);
 				picked1 = card1.find(".inside").addClass("picked");
+				flip1.play();
 
 				_.sleep(1000).then(() => { 
 					card2 = $(cardTwoStr);
 					picked2 = card2.find(".inside").addClass("picked");
+					flip2.play();
 
 					_.sleep(1500).then(() => { 
 						picked1.removeClass("picked");
@@ -337,10 +354,12 @@ $(document).ready(function() {
 			_.sleep(2000).then(() => { 
 				card1 = $(cardOneStr);
 				picked1 = card1.find(".inside").addClass("picked");
+				flip1.play();
 
 				_.sleep(1000).then(() => { 
 					card2 = $(cardTwoStr);
 					picked2 = card2.find(".inside").addClass("picked");
+					flip2.play();
 
 					picked1.addClass("matched");
 					picked2.addClass("matched");
@@ -398,9 +417,6 @@ $(document).ready(function() {
 				console.log("User's Score: ");
 				var strUser = JSON.stringify(window.userNumPairs);
 				console.log(strUser);
-
-				// _.calcAvgRT();
-				//localStorage.clear();
 
 				//Calculate avg reaction time
 				var averageRT = rt_list.reduce((a, b) => a + b, 0) / rt_list.length;
@@ -531,17 +547,7 @@ $(document).ready(function() {
 			img: "images/10H.png",
 			id: 10,
 		}
-		
-		// {
-		// 	name: "sublime",
-		// 	img: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/74196/sublime-logo.png",
-		// 	id: 11
-		// },
-		// {
-		// 	name: "wordpress",
-		// 	img: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/74196/wordpress-logo.png",
-		// 	id: 12
-		// },
+
 	];
 
 	var cardsD = [

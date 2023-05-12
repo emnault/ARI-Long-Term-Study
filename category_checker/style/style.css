@@ -97,7 +97,7 @@
 	.cueheight {
 	  margin: 0;
 	  position: absolute;
-	  top: 70%;
+	  top: 60%;
 	  left: 50%;
 	  transform: translate(-50%, -50%);
 	}
@@ -109,9 +109,6 @@
       left: 50%;
       transform: translate(-50%, -50%);
     }
-
- 
-
 
     .img-container{
         text-align: center;
@@ -129,3 +126,13 @@
         height: auto;
         border-radius: 8px;
     }
+
+    .bottom-btns {
+    height: 95px;
+    position: absolute;
+    top: 88%;
+    left: 38%;
+    /*align-items: center;*/
+}
+
+ 
