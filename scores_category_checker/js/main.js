@@ -52,7 +52,7 @@ $(document).ready(function() {
   default_web.firstFrase();
 
   // document.getElementById("time").innerHTML = "Time: " + localStorage.getItem('time') + " seconds.";
-  document.getElementById("errors").innerHTML = "Errors: " + localStorage.getItem('errors');
+  document.getElementById("errors").innerHTML = "Errors: " + localStorage.getItem('numErrors');
   document.getElementById("reac-time").innerHTML = "Average reaction time: " + localStorage.getItem('reacTime') + " seconds.";
 
   (function(){  

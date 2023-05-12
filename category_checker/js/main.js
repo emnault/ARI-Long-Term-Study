@@ -127,6 +127,8 @@ var randFeed;
 var win;
 var reacTime;
 var avgRT;
+window.finalAvgRT = 0;
+window.numErrors = 0;
 
 
 $(document).ready(function() {
@@ -134,7 +136,6 @@ $(document).ready(function() {
     var cueIdx = 0;
     // var startTime;
     // var endTime;
-    var numErrors = 0;
     var audio = new Audio('correct.mp3');
     audio.preload="auto";
     //Variables for calculating avg reaction time
@@ -142,7 +143,7 @@ $(document).ready(function() {
     var initRT;
     var start = new Date();
     var end = new Date();
-    var rt1 = 0;
+    var rt1 = start.getTime();
     var rt2 = 0;
 
 
@@ -557,6 +558,7 @@ $(document).ready(function() {
 
         ];
 //  shapes_demo.init();
+  localStorage.clear();
   default_web.firstFrase();
   
 
@@ -592,7 +594,7 @@ $(document).ready(function() {
   avgRT = function(){
         var averageRT = rt_list.reduce((a, b) => a + b, 0) / rt_list.length;
         averageRT = averageRT/1000; //convert ms to seconds
-        var finalAvgRT = averageRT.toFixed(2); //cut to 2 decimal places
+        window.finalAvgRT = averageRT.toFixed(2); //cut to 2 decimal places
         console.log("Avg RT: " + finalAvgRT + " seconds.");
         localStorage.setItem('reacTime', finalAvgRT);
   }
@@ -629,7 +631,7 @@ $(document).ready(function() {
 
 
       //Set num errors and avg RT for displaying scores on next screen
-      localStorage.setItem('errors', numErrors);
+      localStorage.setItem('numErrors', numErrors);
 
       avgRT(); 
 
@@ -660,7 +662,7 @@ $(document).ready(function() {
         }
         else{
             reacTime();
-            numErrors++;
+            window.numErrors++;
             return;
         }        
         
@@ -691,7 +693,7 @@ $(document).ready(function() {
         }
         else{
             reacTime(); //reaction time for selecting incorrect answer
-            numErrors++;
+            window.numErrors++;
             return;
         }
         
@@ -723,7 +725,7 @@ $(document).ready(function() {
         }
         else{
             reacTime();
-            numErrors++;
+            window.numErrors++;
             return;
         }
         

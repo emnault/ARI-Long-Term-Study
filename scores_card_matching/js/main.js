@@ -1,7 +1,4 @@
 import * as RRLIB from '../../js/modules/rrlib.js'
-// import { ariNumPairs } from '../../playing_cards_mem_game/js/main.js'
-
-
 
 // RRLIB speech for the games
 
@@ -51,23 +48,7 @@ class DefaultWeb {
 let default_web = new DefaultWeb();
 
 $(document).ready(function() {
-//  shapes_demo.init();
   default_web.firstFrase();
-
-  // var uppercaseModule = require('../../playing_cards_mem_game/js/main.js')
-  // var {ariNumPairs, userNumPairs} = require('../../playing_cards_mem_game/js/main.js')
-
-  // console.log("Getting ari score");
-  // var stringARIScore = window.ariNumPairs.toString();
-  // alert (window.ariNumPairs);
-  // window.onload = alert(localStorage.getItem("storageName"));
-
-  // alert(localStorage.getItem('ariNumPairs'));
-
-  // alert(localStorage.getItem('userNumPairs'));
-
-
-  // console.log("Alert - ari score thrown");
 
   document.getElementById("ari-score").innerHTML = "ARI: " + localStorage.getItem('ariNumPairs') + " pairs.";
   document.getElementById("user-score").innerHTML = "You: " + localStorage.getItem('userNumPairs') + " pairs.";
