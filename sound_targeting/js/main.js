@@ -57,7 +57,14 @@ let default_web = new DefaultWeb();
 var sleep;
 var playSound;
 var randSound;
+var reacTime;
+var avgRT;
+
+var index = 15; //Index of current sound (start with index < num sounds so don't count as correct)
 var pressed = 0; //Indicates if initial press of button has occurred
+window.numCorrect = 0; //number of times button is pressed when target sound is correctly identified
+window.totalTargetSounds = 0; //number of times the target sound is played in the game
+window.numErrors = 0; //Num times user presses the button when the wrong sound has been played
 
 
 
@@ -70,6 +77,15 @@ $(document).ready(function() {
     var endTimer = endTimerDate.getTime();
     var time = 0;
     var i = 0;
+
+
+    //RT variables
+    var rt_list = [];
+    var initRT;
+    var start = new Date();
+    var end = new Date();
+    var rt1 = start.getTime();
+    var rt2 = 0;
 
     default_web.firstFrase();
     var birds = document.getElementById('birds');
@@ -104,12 +120,26 @@ $(document).ready(function() {
     buttonPress.preload="auto";
 
     $("#button").on("touchstart", function(){
-        if(pressed == 0){
+        document.getElementById("button").src="button-images/button-pressed.png";
+        buttonPress.play();
+
+        if(pressed == 0){ //Don't start playing sounds until button has been pressed (otherwise get error)
             pressed = 1;
             playSound();
         }
-        document.getElementById("button").src="button-images/button-pressed.png";
-        buttonPress.play();
+        if(index == 0){ //if target sound is current sound, increase score
+            reacTime();
+            window.numCorrect++;
+        }
+        else if(index == 8){
+            reacTime();
+            window.numCorrect++;
+
+        }
+        else if ((index != 0) || (index != 8)){
+            reacTime();
+            window.numErrors++;
+        }     
     });
 
     $("#button").on("touchend", function(){
@@ -117,11 +147,8 @@ $(document).ready(function() {
     });
     
     $("#next").on("touchend", function(){
-        window.alert("Next pressed");
-   // parent.switchConfig("memory_game");
-    // window.open("../customisation_category/index.html", "_self");
+        window.open("../scores_sound_targeting/index.html", "_self");
     });
-
 
     sleep = function(ms){
         return new Promise(resolve => setTimeout(resolve, ms)); 
@@ -130,157 +157,64 @@ $(document).ready(function() {
     playSound = function(){
 
         sleep(5000).then(() => {
-            console.log("doorbell");
             i++;
-            if(i<5){
+            if(i<10){
                 randSound();
-                // doorbell.play();
                 playSound();
             }
             else{
                 default_web.finishFrase();
+                avgRT();
+                localStorage.setItem('numCorrect', numCorrect);
+                localStorage.setItem('totalTargetSounds', totalTargetSounds);
+                localStorage.setItem('numErrors', numErrors);
             }
-        });
-        
-
+        }); 
     }
 
     randSound = function(){
-            var idx = Math.floor(Math.random() * 13);
-            if (idx == 0){birds.play();}
-            else if (idx == 1){book.play();}
-            else if (idx == 2){carHorn.play();}
-            else if (idx == 3){chaChing.play();}
-            else if (idx == 4){door.play();}
-            else if (idx == 5){doorbell.play();}
-            else if (idx == 6){pen.play();}
-            else if (idx == 7){phone.play();}
-            else if (idx == 8){robot.play();}
-            else if (idx == 9){shh.play();}
-            else if (idx == 10){typewriter.play();}
-            else if (idx == 11){water.play();}
-            else{ //idx = 12
-                whoosh.play();
-            }
+        var idx = Math.floor(Math.random() * 13);
+        index = idx;
+        //Reset start time to calc next reaction time.
+        start = new Date();
+        rt1 = start.getTime();
+        if (idx == 0){
+            window.totalTargetSounds++;
+            birds.play();
+        }
+        else if (idx == 1){book.play();}
+        else if (idx == 2){carHorn.play();}
+        else if (idx == 3){chaChing.play();}
+        else if (idx == 4){door.play();}
+        else if (idx == 5){doorbell.play();}
+        else if (idx == 6){pen.play();}
+        else if (idx == 7){phone.play();}
+        else if (idx == 8){
+            window.totalTargetSounds++;
+            robot.play();
+        }
+        else if (idx == 9){shh.play();}
+        else if (idx == 10){typewriter.play();}
+        else if (idx == 11){water.play();}
+        else{ //idx = 12
+            whoosh.play();
+        }
+
     }
+
+    reacTime = function(){
+        end = new Date();
+        rt2 = end.getTime();
+        initRT = rt2-rt1;
+        rt_list.push(initRT);
+        console.log("RT List: " + rt_list);
+    }
+
+    avgRT = function(){
+        var averageRT = rt_list.reduce((a, b) => a + b, 0) / rt_list.length;
+        averageRT = averageRT/1000; //convert ms to seconds
+        window.finalAvgRT = averageRT.toFixed(2); //cut to 2 decimal places
+        localStorage.setItem('reacTime', finalAvgRT);
+    }     
     
 });
-
-// (function(){    
-    // //3 minute timer vars
-    // var startTimerDate = new Date();
-    // var startTimer = startTimerDate.getTime();
-    // var endTimerDate = new Date();
-    // var endTimer = endTimerDate.getTime();
-
-    // var birds = new Audio('audio-files/birds.mp3');
-    // birds.preload="auto";
-    // var book = new Audio('audio-files/book.mp3');
-    // book.preload="auto";
-    // var carHorn = new Audio('audio-files/car-horn.mp3');
-    // carHorn.preload="auto";
-    // var chaChing = new Audio('audio-files/cha-ching.mp3');
-    // chaChing.preload="auto";
-    // var door = new Audio('audio-files/door.mp3');
-    // door.preload="auto";
-    // var doorbell = new Audio('audio-files/doorbell.mp3');
-    // doorbell.preload="auto";
-    // var pen = new Audio('audio-files/pen.mp3');
-    // pen.preload="auto";
-    // var phone = new Audio('audio-files/phone.mp3');
-    // phone.preload="auto";
-    // var robot = new Audio('audio-files/robot.mp3');
-    // robot.preload="auto";
-    // var shh = new Audio('audio-files/shhh.mp3');
-    // shh.preload="auto";
-    // var typewriter = new Audio('audio-files/typewriter.mp3');
-    // typewriter.preload="auto";
-    // var water = new Audio('audio-files/water.mp3');
-    // water.preload="auto";
-    // var whoosh = new Audio('audio-files/whoosh.mp3');
-    // whoosh.preload="auto";
-
-
-        // init: function(){
-
-            // if (window.firstPress == false){
-            //     this.sleep(2000).then(() => {
-            //         // console.log("Waiting");
-            //         console.log("firstPress: " + firstPress);
-            //         Memory.init();
-            //     });
-            // }
-            // else{
-                // console.log("Rand sound playing");
-                // birds.play();
-            // this.sleep(5000).then(() => {
-            //     var time = endTimer-startTimer;
-            //     console.log("Time: " + time);
-            //     while(time < 15000){ //while x ms hasn't passed
-            //         // this.sleep(2000).then(() => {
-            //             // this.nextSound();
-            //             endTimerDate = new Date();
-            //             endTimer = endTimerDate.getTime();
-            //             var time = endTimer-startTimer;
-            //             console.log("Time 2: " + time);
-            //         // });
-            //     }
-            //     // this.finalSound();
-            //     console.log("DONE");
-            // });
-                
-
-
-            // }
-            // var _ = Memory;
-            // while(endTimer-startTimer < 30000){ //while x ms hasn't passed
-                // this.sleep(2000).then(() => {
-                    // this.sleep(5000).then(() => {
-                    // this.randSound();
-                    // });
-                    // birds.play();
-                    // endTimerDate = new Date();
-                    // endTimer = endTimerDate.getTime();
-                // });
-            // }
-            // this.nextSound();
-        // },
-
-    //     nextSound: function(){
-    //             doorbell.play();
-            
-    //     },
-
-    //     finalSound: function(){
-    //             book.play();
-    //     },
-
-    
-
-        // randSound: function(){
-        //     var idx = Math.floor(Math.random() * 13);
-        //     if (idx == 0){birds.play();}
-        //     else if (idx == 1){book.play();}
-        //     else if (idx == 2){carHorn.play();}
-        //     else if (idx == 3){chaChing.play();}
-        //     else if (idx == 4){door.play();}
-        //     else if (idx == 5){doorbell.play();}
-        //     else if (idx == 6){pen.play();}
-        //     else if (idx == 7){phone.play();}
-        //     else if (idx == 8){robot.play();}
-        //     else if (idx == 9){shh.play();}
-        //     else if (idx == 10){typewriter.play();}
-        //     else if (idx == 11){water.play();}
-        //     else{ //idx = 12
-        //         whoosh.play();
-        //     }
-        // },
-
-    //     sleep: function(ms) {
-    //         return new Promise(resolve => setTimeout(resolve, ms));
-    //     }
-
-    // };
-
-
-
