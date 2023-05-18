@@ -51,7 +51,7 @@ $(document).ready(function() {
 //  shapes_demo.init();
   default_web.firstFrase();
 
-  // document.getElementById("time").innerHTML = "Time: " + localStorage.getItem('time') + " seconds.";
+  document.getElementById("duration").innerHTML = "Time: " + localStorage.getItem('duration') + " seconds.";
   document.getElementById("errors").innerHTML = "Errors: " + localStorage.getItem('numErrors');
   document.getElementById("reac-time").innerHTML = "Average reaction time: " + localStorage.getItem('reacTime') + " seconds.";
 

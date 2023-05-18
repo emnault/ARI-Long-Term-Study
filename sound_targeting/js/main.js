@@ -48,6 +48,34 @@ class DefaultWeb {
 
         return;
     }
+    async niceFrase() {
+        let goal_id = '';                       
+        // Respond
+        this.tts_action.sendGoal({
+            rawtext: {
+                text: "<mark name='doTrick trickName=nod'/>Nice!", 
+                lang_id: "en_GB"
+            }
+        }, (response) => {
+            goal_id = response.goal_id;
+        });
+
+        return;
+    }
+    async correctFrase() {
+        let goal_id = '';                       
+        // Respond
+        this.tts_action.sendGoal({
+            rawtext: {
+                text: "<mark name='doTrick trickName=nod'/> Correct!",
+                lang_id: "en_GB"
+            }
+        }, (response) => {
+            goal_id = response.goal_id;
+        });
+
+        return;
+    }
 
 
     
@@ -130,10 +158,12 @@ $(document).ready(function() {
         if(index == 0){ //if target sound is current sound, increase score
             reacTime();
             window.numCorrect++;
+            default_web.correctFrase();
         }
         else if(index == 8){
             reacTime();
             window.numCorrect++;
+            default_web.niceFrase();
 
         }
         else if ((index != 0) || (index != 8)){

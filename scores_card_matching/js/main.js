@@ -50,6 +50,7 @@ let default_web = new DefaultWeb();
 $(document).ready(function() {
   default_web.firstFrase();
 
+  document.getElementById("duration").innerHTML = "Time: " + localStorage.getItem('mins') + " min " + localStorage.getItem('secs') + " secs.";
   document.getElementById("ari-score").innerHTML = "ARI: " + localStorage.getItem('ariNumPairs') + " pairs.";
   document.getElementById("user-score").innerHTML = "You: " + localStorage.getItem('userNumPairs') + " pairs.";
   document.getElementById("reac-time").innerHTML = " Your average reaction time: " + localStorage.getItem('reacTime') + " seconds.";

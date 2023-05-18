@@ -44,7 +44,7 @@ class DefaultWeb {
         // Respond
         this.tts_action.sendGoal({
             rawtext: {
-                text: "Keep going!", 
+                text: "<mark name='doTrick trickName=alive_6'/>Keep going!", 
                 lang_id: "en_GB"
             }
         }, (response) => {
@@ -56,7 +56,7 @@ class DefaultWeb {
         // Respond
         this.tts_action.sendGoal({
             rawtext: {
-                text: "Great work!", 
+                text: "<mark name='doTrick trickName=alive_5'/>Great work!", 
                 lang_id: "en_GB"
             }
         }, (response) => {
@@ -68,7 +68,7 @@ class DefaultWeb {
         // Respond
         this.tts_action.sendGoal({
             rawtext: {
-                text: "You can do it!", 
+                text: "<mark name='doTrick trickName=nod'/>You can do it!", 
                 lang_id: "en_GB"
             }
         }, (response) => {
@@ -80,7 +80,20 @@ class DefaultWeb {
         // Respond
         this.tts_action.sendGoal({
             rawtext: {
-                text: "Almost there!", 
+                text: "<mark name='doTrick trickName=alive_2'/>Almost there!", 
+                lang_id: "en_GB"
+            }
+        }, (response) => {
+            goal_id = response.goal_id;
+        });
+    }
+
+    aFewLeft() {
+        let goal_id = '';                       
+        // Respond
+        this.tts_action.sendGoal({
+            rawtext: {
+                text: "<mark name='doTrick trickName=alive_6'/>Only a few left!", 
                 lang_id: "en_GB"
             }
         }, (response) => {
@@ -93,31 +106,13 @@ class DefaultWeb {
         // Respond
         this.tts_action.sendGoal({
             rawtext: {
-                text: "All done! Press next to continue.", 
+                text: "<mark name='doTrick trickName=show_right'/>All done! Press next to continue.", 
                 lang_id: "en_GB"
             }
         }, (response) => {
             goal_id = response.goal_id;
         });
     }
-    // ariFeedback() {
-    //     let goal_id = '';     
-    //     const feedback = ["Keep going!", "Great work!", "You can do it!", "Almost there!"];
-
-    //     //randomise feedback given
-    //     const randomElement = feedback[Math.floor(Math.random() * array.length)];
-    //     const speech = feedback[randomElement];
-    //     console.log("Feedback: " + feedback[randomElement]);
-    //     // Respond
-    //     this.tts_action.sendGoal({
-    //         rawtext: {
-    //             text: speech,
-    //             lang_id: "en_GB"
-    //         }
-    //     }, (response) => {
-    //         goal_id = response.goal_id;
-    //     });
-    // }
 }
 
 let default_web = new DefaultWeb();
@@ -129,10 +124,12 @@ var reacTime;
 var avgRT;
 window.finalAvgRT = 0;
 window.numErrors = 0;
+window.duration = 0;
 
 
 $(document).ready(function() {
-
+    var startTimerDate = new Date();
+    var startTimer = startTimerDate.getTime();
     var cueIdx = 0;
     // var startTime;
     // var endTime;
@@ -146,7 +143,7 @@ $(document).ready(function() {
     var rt1 = start.getTime();
     var rt2 = 0;
 
-
+    //98 cues!!
     var cues_pre_shuffle = [
         {
             img: "Cues/Highland_Cow.jpg",
@@ -602,18 +599,15 @@ $(document).ready(function() {
   //rand feedback during interaction
   randFeed = function(){
     //0 = min, 3 = max
-        var idx = Math.floor(Math.random() * 4);
+        var idx = Math.floor(Math.random() * 3);
         if (idx == 0){
             default_web.keepGoing();
         }
         else if (idx == 1){
             default_web.greatWork();
         }
-        else if (idx == 2){
+        else { //idx = 2
             default_web.youCanDoIt();
-        }
-        else{ //idx = 3
-            default_web.almostThere();
         }
     }
 
@@ -631,6 +625,11 @@ $(document).ready(function() {
 
 
       //Set num errors and avg RT for displaying scores on next screen
+      var endTimerDate = new Date();
+      var endTimer = endTimerDate.getTime();
+      var time = (endTimer-startTimer)/1000;
+      window.duration = time.toFixed(2); //cut to 2 decimal places
+      localStorage.setItem('duration', duration);
       localStorage.setItem('numErrors', numErrors);
 
       avgRT(); 
@@ -677,6 +676,12 @@ $(document).ready(function() {
         }
         if( (cueIdx==8) | (cueIdx==16)){
             randFeed();
+        }
+        else if (cueIdx==82){
+            default_web.almostThere();
+        }
+        else if (cueIdx==95){
+            default_web.aFewLeft();
         }
   	   
   	});

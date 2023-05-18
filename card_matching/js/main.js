@@ -25,7 +25,7 @@ class DefaultWeb {
         // Respond
         this.tts_action.sendGoal({
             rawtext: {
-                text: "Let's begin! You go first.",
+                text: "<mark name='doTrick trickName=show_right'/>Let's begin! You go first.",
                 lang_id: "en_GB"
             }
         }, (response) => {
@@ -44,12 +44,24 @@ class DefaultWeb {
             goal_id = response.goal_id;
         });
     }
+    woohooFrase() {
+        let goal_id = '';                       
+        // Respond
+        this.tts_action.sendGoal({
+            rawtext: {
+                text: "<break time='500ms'/><mark name='doTrick trickName=alive_6'/> Woo hoo!", //<break time='500ms'/>
+                lang_id: "en_GB"
+            }
+        }, (response) => {
+            goal_id = response.goal_id;
+        });
+    }
     thirdFrase() {
         let goal_id = '';                       
         // Respond
         this.tts_action.sendGoal({
             rawtext: {
-                text: "<mark name='doTrick trickName=alive_1'/>Nice one.",
+                text: "<mark name='doTrick trickName=alive_1'/>Good one.",
                 lang_id: "en_GB"
             }
         }, (response) => {
@@ -57,6 +69,43 @@ class DefaultWeb {
         });
 
     }
+    keepGoing() {
+        let goal_id = '';                       
+        // Respond
+        this.tts_action.sendGoal({
+            rawtext: {
+                text: "<mark name='doTrick trickName=alive_5'/>Keep going!", 
+                lang_id: "en_GB"
+            }
+        }, (response) => {
+            goal_id = response.goal_id;
+        });
+    }
+    greatWork() {
+        let goal_id = '';                       
+        // Respond
+        this.tts_action.sendGoal({
+            rawtext: {
+                text: "<mark name='doTrick trickName=alive_7'/>Great work!", 
+                lang_id: "en_GB"
+            }
+        }, (response) => {
+            goal_id = response.goal_id;
+        });
+    }
+    goAgain() {
+        let goal_id = '';                       
+        // Respond
+        this.tts_action.sendGoal({
+            rawtext: {
+                text: "<mark name='doTrick trickName=alive_6'/>Nice, go again!", 
+                lang_id: "en_GB"
+            }
+        }, (response) => {
+            goal_id = response.goal_id;
+        });
+    }
+    
     winFrase() {
         let goal_id = '';                       
         // Respond
@@ -76,11 +125,16 @@ let default_web = new DefaultWeb();
 window.ariNumPairs = 0;
 window.userNumPairs = 0;
 window.reacTime = 0; //reaction time - time it takes to select the pair of cards
-
+// window.duration = 0;
+window.secs = 0;
+window.mins = 0;
+var startTimer = 0;
 
 
 // Add event listeners
 $(document).ready(function() {
+  var startTimerDate = new Date();
+  startTimer = startTimerDate.getTime();
   default_web.firstFrase();
 
   var flip1 = document.getElementById('flip1');
@@ -109,6 +163,7 @@ $(document).ready(function() {
 	var ids = [1,2,3,4,5,6,7,8,9,10,11,22,33,44,55,66,77,88,99,110]; 
 	var ariMatch = 0; //add until reach threshold, where ARI will pick a correct pair
 	var speakYes = true;
+	var ariFeed = 0;
 	var speakNiceOne = true;
 	//for reaction time calculations
 	var rt_list = [];
@@ -117,6 +172,7 @@ $(document).ready(function() {
 	var end = new Date();
 	var rt1 = 0;
 	var rt2 = 0;
+	var feedbackCntr = 0; //counter so ARI will say all phrases of encouragement each round of the game
 	
 	
 	var Memory = {
@@ -182,20 +238,28 @@ $(document).ready(function() {
 				} 
 				//If the id matches the guess's id and (the second card?) hasn't been picked yet
 				else if((_.guess == parseInt($(this).attr("data-id"))*11 || _.guess == parseInt($(this).attr("data-id"))/11 )&& !$(this).hasClass("picked")){
-					end = new Date();
-					rt2 = end.getTime();
-					// console.log("rt2 match: " + rt2);
-					initRT = rt2-rt1;
-					rt_list.push(initRT);
-					console.log("RT List: " + rt_list);
+		
 
 					flip2.play();
 					//the card is a match, add match attribute
 					$(".picked").addClass("matched");
+
+
+					//Calc rt for this correct pair and restart timer for next pair
+					end = new Date();
+					rt2 = end.getTime();
+					initRT = rt2-rt1;
+					rt_list.push(initRT);
+					console.log("RT List: " + rt_list);
+					// document.getElementById("title").innerHTML = initRT;
+
+					start = new Date();
+					rt1 = start.getTime();
+					console.log("RT START");
+
 					_.sleep(1000).then(() => { 
 					if(speakNiceOne == true){
-						default_web.thirdFrase();
-						console.log("Nice One");
+						_.randFeed();
 						speakNiceOne = false;						
 					}
 					else if(speakNiceOne == false){
@@ -205,10 +269,6 @@ $(document).ready(function() {
 					
 					ids.splice(ids.indexOf(parseInt($(this).attr("data-id"))), 1);
 					ids.splice(ids.indexOf(_.guess), 1);
-					
-					console.log("ID Array after splicing card 2: ");
-					var str4 = JSON.stringify(ids);
-					console.log(str4);
 
 					//update user's score
 					window.userNumPairs++;
@@ -225,6 +285,7 @@ $(document).ready(function() {
 					initRT = rt2-rt1;
 					rt_list.push(initRT);
 					console.log("RT List: " + rt_list);
+					// document.getElementById("title").innerHTML = initRT;
 					flip2.play();
 					_.guess = null;
 					_.paused = true;
@@ -251,6 +312,24 @@ $(document).ready(function() {
 				}
 			}
 		},
+
+		randFeed: function(){
+	    	//0 = min, 3 = max
+	        // var idx = Math.floor(Math.random() * 3);
+	        if (feedbackCntr == 0){
+	        	default_web.goAgain();
+	        }
+	        else if (feedbackCntr == 1){
+	            default_web.greatWork();
+	        }
+	        else if(feedbackCntr == 2){
+	        	default_web.keepGoing();
+	        }
+	        else { //idx = 3+
+	            default_web.thirdFrase();
+	        }
+	        feedbackCntr++;
+	    },
 
 		ariIncorrectPair: function(){
 
@@ -387,7 +466,15 @@ $(document).ready(function() {
 			});
 			if(speakYes == true){
 				_.sleep(3000).then(() => { 
-					default_web.secondFrase();
+					if (ariFeed == 0){
+						default_web.secondFrase();
+						ariFeed++;
+					}
+					else{
+						default_web.woohooFrase();
+						ariFeed--;
+					}
+					
 					speakYes = false;
 				});
 				
@@ -411,12 +498,28 @@ $(document).ready(function() {
 		win: function(){
 			this.paused = true;
 			setTimeout(function(){
-				console.log("ARI's Score: ");
-				var strARI = JSON.stringify(window.ariNumPairs);
-				console.log(strARI);
-				console.log("User's Score: ");
-				var strUser = JSON.stringify(window.userNumPairs);
-				console.log(strUser);
+				// console.log("ARI's Score: ");
+				// var strARI = JSON.stringify(window.ariNumPairs);
+				// console.log(strARI);
+				// console.log("User's Score: ");
+				// var strUser = JSON.stringify(window.userNumPairs);
+				// console.log(strUser);
+				console.log("IN WIN FXN");
+
+				//Calc total duration of game
+				var endTimerDate = new Date();
+			    var endTimer = endTimerDate.getTime();
+			    var totalSeconds = (endTimer-startTimer)/1000; //total seconds
+			    //split total seconds into mins and secs
+			    var minutes = Math.floor(totalSeconds / 60);
+			    var seconds = totalSeconds - minutes * 60;
+
+			    seconds = seconds.toFixed(0); //cut to 0 decimal places
+
+			    window.mins = minutes;
+			    window.secs = seconds;
+			    localStorage.setItem('mins', mins);
+			    localStorage.setItem('secs', secs);
 
 				//Calculate avg reaction time
 				var averageRT = rt_list.reduce((a, b) => a + b, 0) / rt_list.length;
@@ -428,6 +531,7 @@ $(document).ready(function() {
 				localStorage.setItem('ariNumPairs', ariNumPairs);
 				localStorage.setItem('userNumPairs', userNumPairs);
 
+				console.log("SAYING WIN FRASE");
                 default_web.winFrase();
 				// Memory.showModal();
 				// Memory.$game.fadeOut();
