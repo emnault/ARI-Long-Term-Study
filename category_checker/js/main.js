@@ -646,6 +646,29 @@ $(document).ready(function() {
 
   var cues = shuffle(cues_pre_shuffle); //Shuffle cues
   var firstImage = cues[0].img;
+
+  //Haptic request
+  // const req = new XMLHttpRequest();
+  
+  // req.open("POST", "http://192.168.1.4:2000/50AA100");
+  // req.timeout = 500;
+  // req.ontimeout = (e) => {
+  //   // XMLHttpRequest timed out. Do something here.
+  //   document.getElementById("title").innerHTML = "Timeout";
+
+  // };
+  // req.onload = () => {
+  // // Request finished. Do processing here.
+  // document.getElementById("title").innerHTML = "Request Loaded";
+  //   };
+
+  // req.ontimeout = (e) => {
+  //     // XMLHttpRequest timed out. Do something here.
+  //     document.getElementById("title").innerHTML = "Timeout";
+  // };
+
+
+
   document.getElementById("Cue").src=firstImage;
 
   //hide finish button until game is completed
@@ -666,6 +689,16 @@ $(document).ready(function() {
             reacTime();
             audio.currentTime = 0;
             audio.play();
+
+            const req = new XMLHttpRequest();
+            req.open("POST", "http://192.168.1.4:2000/50AA100");
+            req.timeout = 500;
+            req.ontimeout = (e) => {
+                // XMLHttpRequest timed out. Do something here.
+                document.getElementById("title").innerHTML = "Timeout";
+            };
+            req.send();
+            document.getElementById("title").innerHTML = "Animals Haptic";
         }
         else{
             reacTime();
@@ -703,6 +736,18 @@ $(document).ready(function() {
             reacTime();
             audio.currentTime = 0;
             audio.play();
+            // const xhr = new XMLHttpRequest();
+            // xhr.open("POST", "http://192.168.1.4:2000/50AA100");
+            // xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
+            const req = new XMLHttpRequest();
+            req.open("POST", "http://192.168.1.4:2000/50AA100");
+            req.timeout = 500;
+            req.ontimeout = (e) => {
+                // XMLHttpRequest timed out. Do something here.
+                document.getElementById("title").innerHTML = "Timeout";
+            };
+            req.send();
+            document.getElementById("title").innerHTML = "Food Haptic";
         }
         else{
             reacTime(); //reaction time for selecting incorrect answer
@@ -735,6 +780,17 @@ $(document).ready(function() {
             reacTime();
             audio.currentTime = 0;
             audio.play();
+
+            const req = new XMLHttpRequest();
+            req.open("POST", "http://192.168.1.4:2000/50AA100");
+            req.timeout = 500;
+            req.ontimeout = (e) => {
+                // XMLHttpRequest timed out. Do something here.
+                document.getElementById("title").innerHTML = "Timeout";
+            };
+            req.send();
+            document.getElementById("title").innerHTML = "Countries Haptic";
+
         }
         else{
             reacTime();
