@@ -124,8 +124,8 @@ var reacTime;
 var avgRT;
 window.finalAvgRT = 0;
 window.numErrors = 0;
-window.duration = 0;
-
+window.secs = 0;
+window.mins = 0;
 
 $(document).ready(function() {
     var startTimerDate = new Date();
@@ -627,9 +627,17 @@ $(document).ready(function() {
       //Set num errors and avg RT for displaying scores on next screen
       var endTimerDate = new Date();
       var endTimer = endTimerDate.getTime();
-      var time = (endTimer-startTimer)/1000;
-      window.duration = time.toFixed(2); //cut to 2 decimal places
-      localStorage.setItem('duration', duration);
+      var totalSeconds = (endTimer-startTimer)/1000; //total seconds
+      //split total seconds into mins and secs
+      var minutes = Math.floor(totalSeconds / 60);
+      var seconds = totalSeconds - minutes * 60;
+
+      seconds = seconds.toFixed(0); //cut to 0 decimal places
+
+      window.mins = minutes;
+      window.secs = seconds;
+      localStorage.setItem('mins', mins);
+      localStorage.setItem('secs', secs);
       localStorage.setItem('numErrors', numErrors);
 
       avgRT(); 
