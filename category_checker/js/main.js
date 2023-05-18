@@ -122,6 +122,7 @@ var randFeed;
 var win;
 var reacTime;
 var avgRT;
+var hapticFeed;
 window.finalAvgRT = 0;
 window.numErrors = 0;
 window.secs = 0;
@@ -644,8 +645,22 @@ $(document).ready(function() {
 
     }
 
+    hapticFeed = function(){
+
+        const req = new XMLHttpRequest();
+        req.open("POST", "http://192.168.1.4:2000/50AA100");
+        req.timeout = 200;
+        req.ontimeout = (e) => {
+            // XMLHttpRequest timed out. Do something here.
+            document.getElementById("title").innerHTML = "Timeout";
+        };
+        req.send();
+
+    }
+
   var cues = shuffle(cues_pre_shuffle); //Shuffle cues
   var firstImage = cues[0].img;
+  var numCorrect = 0;
 
   //Haptic request
   // const req = new XMLHttpRequest();
@@ -689,16 +704,12 @@ $(document).ready(function() {
             reacTime();
             audio.currentTime = 0;
             audio.play();
-
-            const req = new XMLHttpRequest();
-            req.open("POST", "http://192.168.1.4:2000/50AA100");
-            req.timeout = 500;
-            req.ontimeout = (e) => {
-                // XMLHttpRequest timed out. Do something here.
-                document.getElementById("title").innerHTML = "Timeout";
-            };
-            req.send();
-            document.getElementById("title").innerHTML = "Animals Haptic";
+            numCorrect++;
+            if(numCorrect==5){
+                hapticFeed();
+                document.getElementById("title").innerHTML = "Haptic Feedback";
+                numCorrect = 0;
+            }
         }
         else{
             reacTime();
@@ -736,18 +747,12 @@ $(document).ready(function() {
             reacTime();
             audio.currentTime = 0;
             audio.play();
-            // const xhr = new XMLHttpRequest();
-            // xhr.open("POST", "http://192.168.1.4:2000/50AA100");
-            // xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
-            const req = new XMLHttpRequest();
-            req.open("POST", "http://192.168.1.4:2000/50AA100");
-            req.timeout = 500;
-            req.ontimeout = (e) => {
-                // XMLHttpRequest timed out. Do something here.
-                document.getElementById("title").innerHTML = "Timeout";
-            };
-            req.send();
-            document.getElementById("title").innerHTML = "Food Haptic";
+            numCorrect++;
+            if(numCorrect==5){
+                hapticFeed();
+                document.getElementById("title").innerHTML = "Haptic Feedback";
+                numCorrect = 0;
+            }
         }
         else{
             reacTime(); //reaction time for selecting incorrect answer
@@ -780,17 +785,12 @@ $(document).ready(function() {
             reacTime();
             audio.currentTime = 0;
             audio.play();
-
-            const req = new XMLHttpRequest();
-            req.open("POST", "http://192.168.1.4:2000/50AA100");
-            req.timeout = 500;
-            req.ontimeout = (e) => {
-                // XMLHttpRequest timed out. Do something here.
-                document.getElementById("title").innerHTML = "Timeout";
-            };
-            req.send();
-            document.getElementById("title").innerHTML = "Countries Haptic";
-
+            numCorrect++;
+            if(numCorrect==5){
+                hapticFeed();
+                document.getElementById("title").innerHTML = "Haptic Feedback";
+                numCorrect = 0;
+            }
         }
         else{
             reacTime();
