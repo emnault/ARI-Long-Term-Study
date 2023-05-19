@@ -167,11 +167,13 @@ $(document).ready(function() {
         else if(index == 0){ //if target sound is current sound, increase score
             reacTime();
             window.numCorrect++;
+            hapticFeed();
             default_web.correctFrase();
         }
         else if(index == 8){
             reacTime();
             window.numCorrect++;
+            hapticFeed();
             default_web.niceFrase();
 
         }
