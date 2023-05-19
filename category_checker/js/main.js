@@ -196,38 +196,38 @@ $(document).ready(function() {
             id: "Animals",
         },
 
-        // {
-        //     img: "Cues/Fish.jpg",
-        //     id: "Animals",
-        // },
+        {
+            img: "Cues/Fish.jpg",
+            id: "Animals",
+        },
 
-        // {
-        //     img: "Cues/Breakfast.jpg",
-        //     id: "Food",
-        // },
+        {
+            img: "Cues/Breakfast.jpg",
+            id: "Food",
+        },
 
-        // {
-        //     img: "Cues/Tiger.jpg",
-        //     id: "Animals",
-        // },
+        {
+            img: "Cues/Tiger.jpg",
+            id: "Animals",
+        },
 
-        // {
-        //     img: "Cues/Cupcake.jpg",
-        //     id: "Food",
-        // },
+        {
+            img: "Cues/Cupcake.jpg",
+            id: "Food",
+        },
 
-        // {
-        //     img: "Cues/France.png",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Spain.png",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Italy.jpeg",
-        //     id: "Countries",
-        // },
+        {
+            img: "Cues/France.png",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Spain.png",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Italy.jpeg",
+            id: "Countries",
+        },
         // {
         //     img: "Cues/UK.jpeg",
         //     id: "Countries",
@@ -651,8 +651,8 @@ $(document).ready(function() {
         req.open("POST", "http://192.168.1.4:2000/50AA100");
         req.timeout = 200;
         req.ontimeout = (e) => {
-            // XMLHttpRequest timed out. Do something here.
-            document.getElementById("title").innerHTML = "Timeout";
+            console.log("Timeout");
+            // document.getElementById("title").innerHTML = "Timeout";
         };
         req.send();
 
@@ -661,28 +661,6 @@ $(document).ready(function() {
   var cues = shuffle(cues_pre_shuffle); //Shuffle cues
   var firstImage = cues[0].img;
   var numCorrect = 0;
-
-  //Haptic request
-  // const req = new XMLHttpRequest();
-  
-  // req.open("POST", "http://192.168.1.4:2000/50AA100");
-  // req.timeout = 500;
-  // req.ontimeout = (e) => {
-  //   // XMLHttpRequest timed out. Do something here.
-  //   document.getElementById("title").innerHTML = "Timeout";
-
-  // };
-  // req.onload = () => {
-  // // Request finished. Do processing here.
-  // document.getElementById("title").innerHTML = "Request Loaded";
-  //   };
-
-  // req.ontimeout = (e) => {
-  //     // XMLHttpRequest timed out. Do something here.
-  //     document.getElementById("title").innerHTML = "Timeout";
-  // };
-
-
 
   document.getElementById("Cue").src=firstImage;
 
@@ -697,9 +675,6 @@ $(document).ready(function() {
 
   $("#Animals").on("touchend", function(ev){
       ev.preventDefault(); 
-        // if (cueIdx ==0){
-        //     startTime = new Date();
-        // }
         if(cues[cueIdx].id==="Animals"){
             reacTime();
             audio.currentTime = 0;
@@ -707,13 +682,14 @@ $(document).ready(function() {
             numCorrect++;
             if(numCorrect==5){
                 hapticFeed();
-                document.getElementById("title").innerHTML = "Haptic Feedback";
+                // document.getElementById("title").innerHTML = "Haptic Feedback";
                 numCorrect = 0;
             }
         }
         else{
             reacTime();
             window.numErrors++;
+            numCorrect = 0; //Reset to zero if wrong so only get buzz for every 5 IN A ROW
             return;
         }        
         
@@ -740,9 +716,6 @@ $(document).ready(function() {
 
     $("#Food").on("touchend", function(ev){
       ev.preventDefault(); 
-        // if (cueIdx ==0){
-        //     startTime = new Date();
-        // }
         if(cues[cueIdx].id==="Food"){
             reacTime();
             audio.currentTime = 0;
@@ -750,13 +723,14 @@ $(document).ready(function() {
             numCorrect++;
             if(numCorrect==5){
                 hapticFeed();
-                document.getElementById("title").innerHTML = "Haptic Feedback";
+                // document.getElementById("title").innerHTML = "Haptic Feedback";
                 numCorrect = 0;
             }
         }
         else{
             reacTime(); //reaction time for selecting incorrect answer
             window.numErrors++;
+            numCorrect = 0; //Reset to zero if wrong so only get buzz for every 5 IN A ROW
             return;
         }
         
@@ -778,9 +752,6 @@ $(document).ready(function() {
 
     $("#Countries").on("touchend", function(ev){
       ev.preventDefault(); 
-        // if (cueIdx ==0){
-        //     startTime = new Date();
-        // }
         if(cues[cueIdx].id==="Countries"){
             reacTime();
             audio.currentTime = 0;
@@ -788,13 +759,14 @@ $(document).ready(function() {
             numCorrect++;
             if(numCorrect==5){
                 hapticFeed();
-                document.getElementById("title").innerHTML = "Haptic Feedback";
+                // document.getElementById("title").innerHTML = "Haptic Feedback";
                 numCorrect = 0;
             }
         }
         else{
             reacTime();
             window.numErrors++;
+            numCorrect = 0; //Reset to zero if wrong so only get buzz for every 5 IN A ROW
             return;
         }
         

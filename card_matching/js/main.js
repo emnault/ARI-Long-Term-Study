@@ -253,6 +253,10 @@ $(document).ready(function() {
 					console.log("RT List: " + rt_list);
 					// document.getElementById("title").innerHTML = initRT;
 
+
+					//Buzz since correct pair
+					_.hapticFeed();
+
 					start = new Date();
 					rt1 = start.getTime();
 					console.log("RT START");
@@ -494,6 +498,19 @@ $(document).ready(function() {
 		sleep: function(ms) {
 			return new Promise(resolve => setTimeout(resolve, ms));
 		},
+
+		hapticFeed: function(){
+			// document.getElementById("title").innerHTML = "Feedback";
+	        const req = new XMLHttpRequest();
+	        req.open("POST", "http://192.168.1.4:2000/50AA100");
+	        req.timeout = 2000;
+	        req.ontimeout = (e) => {
+	            console.log("Timeout");
+	            // document.getElementById("title").innerHTML = "Timeout";
+	        };
+	        req.send();
+
+	    },
 
 		win: function(){
 			this.paused = true;

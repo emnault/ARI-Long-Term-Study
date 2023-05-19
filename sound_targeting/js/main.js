@@ -83,12 +83,14 @@ class DefaultWeb {
 
 let default_web = new DefaultWeb();
 var sleep;
+var nextSound;
 var playSound;
-var randSound;
 var reacTime;
 var avgRT;
+var hapticFeed;
+var shuffle;
 
-var index = 15; //Index of current sound (start with index < num sounds so don't count as correct)
+var index = -1; //Index of current sound (start with index < num sounds so don't count as correct)
 var pressed = 0; //Indicates if initial press of button has occurred
 window.numCorrect = 0; //number of times button is pressed when target sound is correctly identified
 window.totalTargetSounds = 0; //number of times the target sound is played in the game
@@ -106,6 +108,10 @@ $(document).ready(function() {
     var time = 0;
     var i = 0;
 
+    //Array of ints representing diff sounds
+    // var sounds = [0,0,0,1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,9,9,9,10,10,10,11,11,11,12,12,12];
+    var origSounds = [0,1,2,3,4,5,6,7,8,9,10,11,12]; //short version of array for testing purposes
+    var sounds;
 
     //RT variables
     var rt_list = [];
@@ -150,12 +156,15 @@ $(document).ready(function() {
     $("#button").on("touchstart", function(){
         document.getElementById("button").src="button-images/button-pressed.png";
         buttonPress.play();
+        
+        // document.getElementById("title").innerHTML = sounds;
 
         if(pressed == 0){ //Don't start playing sounds until button has been pressed (otherwise get error)
+            sounds = shuffle(origSounds);
             pressed = 1;
-            playSound();
+            nextSound(200);
         }
-        if(index == 0){ //if target sound is current sound, increase score
+        else if(index == 0){ //if target sound is current sound, increase score
             reacTime();
             window.numCorrect++;
             default_web.correctFrase();
@@ -169,6 +178,7 @@ $(document).ready(function() {
         else if ((index != 0) || (index != 8)){
             reacTime();
             window.numErrors++;
+            document.getElementById("title").innerHTML = "numErrors++";
         }     
     });
 
@@ -184,13 +194,31 @@ $(document).ready(function() {
         return new Promise(resolve => setTimeout(resolve, ms)); 
     }
 
-    playSound = function(){
+    // Fisher--Yates Algorithm -- https://bost.ocks.org/mike/shuffle/
+    shuffle = function(array){
+        var counter = array.length, temp, arrIndex;
+        // While there are elements in the array
+        while (counter > 0) {
+            // Pick a random index
+            arrIndex = Math.floor(Math.random() * counter);
+            // Decrease counter by 1
+            counter--;
+            // And swap the last element with it
+            temp = array[counter];
+            array[counter] = array[arrIndex];
+            array[arrIndex] = temp;
+            }
+            return array;
+    }
 
-        sleep(5000).then(() => {
+    nextSound = function(ms){
+
+        sleep(ms).then(() => {
             i++;
-            if(i<10){
-                randSound();
-                playSound();
+            if(i<sounds.length){
+                document.getElementById("title").innerHTML = sounds[i];
+                playSound(sounds[i]);
+                nextSound(5000);
             }
             else{
                 default_web.finishFrase();
@@ -202,8 +230,8 @@ $(document).ready(function() {
         }); 
     }
 
-    randSound = function(){
-        var idx = Math.floor(Math.random() * 13);
+    playSound = function(idx){
+        // var idx = Math.floor(Math.random() * 13);
         index = idx;
         //Reset start time to calc next reaction time.
         start = new Date();
@@ -229,6 +257,19 @@ $(document).ready(function() {
         else{ //idx = 12
             whoosh.play();
         }
+
+    }
+
+    hapticFeed = function(){
+
+        const req = new XMLHttpRequest();
+        req.open("POST", "http://192.168.1.4:2000/50AA100");
+        req.timeout = 1000;
+        req.ontimeout = (e) => {
+            console.log("Timeout");
+            // document.getElementById("title").innerHTML = "Timeout";
+        };
+        req.send();
 
     }
 
