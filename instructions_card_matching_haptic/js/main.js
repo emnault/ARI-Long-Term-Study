@@ -25,7 +25,7 @@ class DefaultWeb {
         // Respond
         this.tts_action.sendGoal({
             rawtext: {
-                text: "<mark name='doTrick trickName=alive_1'/> We're going to play a game of pairs with twenty red playing cards, <mark name='doTrick trickName=alive_5'/>Ace through ten. <mark name='doTrick trickName=alive_7'/>We will take turns to turn over any two cards. <mark name='doTrick trickName=alive_3'/>If both are a pair, for example, both are number nines, <mark name='doTrick trickName=alive_5'/>then that same player has another turn. <mark name='doTrick trickName=alive_4'/>If the cards are not a pair, then the other player takes a turn. <mark name='doTrick trickName=nod'/> We will continue to do this until the<mark name='doTrick trickName=alive_2'/> whole deck has been turned over. <mark name='doTrick trickName=alive_5'/>Try to remember where cards are. You should improve with practice. <mark name='doTrick trickName=show_left'/> The winner is the player with the most cards at the end of the game!", 
+                text: "<mark name='doTrick trickName=alive_1'/> We're going to play a game of pairs with twenty red playing cards, <mark name='doTrick trickName=alive_5'/>Ace through ten. <mark name='doTrick trickName=alive_7'/>We will take turns to turn over any two cards. <mark name='doTrick trickName=alive_3'/>If both are a pair, for example, both are number nines, <mark name='doTrick trickName=alive_5'/> then that same player has another turn. <mark name='doTrick trickName=alive_4'/>If the cards are not a pair, then the other player takes a turn. <mark name='doTrick trickName=nod'/> Each time you get a pair, you will feel a vibration on your wrist. <mark name='doTrick trickName=nod'/>We will continue to do this until the<mark name='doTrick trickName=alive_2'/> whole deck has been turned over. <mark name='doTrick trickName=alive_5'/> <mark name='doTrick trickName=show_left'/> The winner is the player with the most cards at the end of the game!", 
                 lang_id: "en_GB"
             }
         }, (response) => {
@@ -54,13 +54,14 @@ $(document).ready(function() {
 
     
   // Add event listeners
+  $("#replay").on("touchend", function(){
+   // parent.switchConfig("memory_game");
+    window.open("../instructions_card_matching_haptic/index.html", "_self");
+  });
     $("#next").on("touchend", function(){
    // parent.switchConfig("memory_game");
-    window.open("../customisation_category/index.html", "_self");
+    window.open("../training/index.html", "_self");
   });
-    $("#back").on("touchend", function(){
-   parent.switchConfig("activity_choice_slideshow");
-    // window.open("../customisation_category/index.html", "_self");
-  });
+    
 });
 

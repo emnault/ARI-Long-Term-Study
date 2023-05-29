@@ -25,7 +25,7 @@ class DefaultWeb {
         // Respond
         this.tts_action.sendGoal({
             rawtext: {
-                text: "<mark name='doTrick trickName=alive_7'/>Touch the category from the top row that corresponds to the image at the bottom of the screen. If you select correctly, <mark name='doTrick trickName=alive_1'/>you will hear a ding sound, and the bottom image will change. If you get it wrong, you can try again until you categorise it correctly. The goal is to complete the task both quickly and accurately.", 
+                text: "<mark name='doTrick trickName=alive_7'/>Touch the category from the top row that corresponds to the image at the bottom of the screen. If you select correctly, <mark name='doTrick trickName=alive_1'/>you will hear a ding sound, and the bottom image will change. If you get it wrong, you can try again until you categorise it correctly. <mark name='doTrick trickName=show_right'/>The goal is to complete the task both quickly and accurately. Press replay to hear these instructions again, or press next to move on to the training.", 
                 lang_id: "en_GB"
             }
         }, (response) => {
@@ -56,13 +56,14 @@ $(document).ready(function() {
 
     
   // Add event listeners
+      $("#replay").on("touchend", function(){
+   // parent.switchConfig("memory_game");
+    window.open("../instructions_cat_check/index.html", "_self");
+  });
     $("#next").on("touchend", function(){
    // parent.switchConfig("memory_game");
-    window.open("../customisation_category/index.html", "_self");
+    window.open("../training/index.html", "_self");
   });
-    $("#back").on("touchend", function(){
-   parent.switchConfig("activity_choice_slideshow");
-    // window.open("../customisation_category/index.html", "_self");
-  });
+
 });
 
