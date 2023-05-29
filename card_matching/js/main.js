@@ -141,6 +141,8 @@ $(document).ready(function() {
   flip1.setAttribute('src', 'flip-card-1.mp3'); 
   var flip2 = document.getElementById('flip2');
   flip2.setAttribute('src', 'flip-card-2.mp3'); 
+  var flipBack = document.getElementById('flipBack');
+  flipBack.setAttribute('src', 'flip-card-back.mp3'); 
 
   
 
@@ -173,6 +175,7 @@ $(document).ready(function() {
 	var rt1 = 0;
 	var rt2 = 0;
 	var feedbackCntr = 0; //counter so ARI will say all phrases of encouragement each round of the game
+	var firstCard = false; //first card has been picked
 	
 	
 	var Memory = {
@@ -230,7 +233,15 @@ $(document).ready(function() {
 			if(!_.paused && !$card.find(".inside").hasClass("matched") && !$card.find(".inside").hasClass("picked")){
 				//add picked attribute to card
 				$card.find(".inside").addClass("picked");
-				flip1.play();
+				if(firstCard == false){
+					flip1.play();
+					console.log("Flip 1");
+					firstCard = true;
+				}
+				else{
+					firstCard = false; //reset for next two cards picked
+				}
+				
 				//If guess hasn't been made yet
 				if(!_.guess){
 					//add id to the guess variable
@@ -241,6 +252,7 @@ $(document).ready(function() {
 		
 
 					flip2.play();
+					console.log("Flip 2");
 					//the card is a match, add match attribute
 					$(".picked").addClass("matched");
 
@@ -290,6 +302,7 @@ $(document).ready(function() {
 					rt_list.push(initRT);
 					console.log("RT List: " + rt_list);
 					// document.getElementById("title").innerHTML = initRT;
+					console.log("FLIP 2");
 					flip2.play();
 					_.guess = null;
 					_.paused = true;
@@ -297,6 +310,7 @@ $(document).ready(function() {
 					_.sleep(1500).then(() => { 
 						// Waiting to flip back over
 						$(".picked").removeClass("picked");
+						flipBack.play();
 						Memory.paused = false;
 					});
 
@@ -383,6 +397,7 @@ $(document).ready(function() {
 					_.sleep(1500).then(() => { 
 						picked1.removeClass("picked");
 						picked2.removeClass("picked");
+						flipBack.play();
 						start = new Date();
 						rt1 = start.getTime();
 						console.log("RT START");
