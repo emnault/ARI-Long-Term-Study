@@ -39,16 +39,24 @@ class DefaultWeb {
 }
 
 let default_web = new DefaultWeb();
+var sleep;
 var training = false; //sets to true when next button is pressed, so when pressed second time will go to training
 
 $(document).ready(function() {
 
-    
+    sleep = function(ms){
+        return new Promise(resolve => setTimeout(resolve, ms)); 
+    }
+
+    var birds = document.getElementById('birds');
+    birds.setAttribute('src', 'audio-files/birds.mp3');   
+    robot.setAttribute('src', 'audio-files/robot.mp3');
+    var shh = document.getElementById('shh');
   // Add event listeners
     $("#back").on("touchend", function(){
       document.getElementById('image').src = 'instructions_1.png';
       var instructions_text = document.getElementById('instructions_text');
-      instructions_text.innerHTML = "Touch the category from the top row that corresponds to the image at the bottom of the screen. If you select correctly, you will hear a ding sound, and the bottom image will change.";
+      instructions_text.innerHTML = "You will hear a selection of noises in no particular order over the course of 3 minutes. You should listen for either of the sounds that play when touching the Target Sounds button.";
       training = false;
     });
     $("#next").on("touchend", function(){
@@ -59,10 +67,17 @@ $(document).ready(function() {
         else if(training == false){
           document.getElementById('image').src = 'instructions_2.png';
           var instructions_text = document.getElementById('instructions_text');
-          instructions_text.innerHTML = "If the cards are not a pair, then the other player takes a turn. Each time you get a pair, you will feel a vibration on your wrist. We will continue to do this until the whole deck has been turned over. The winner is the player with the most cards at the end of the game! Press next to move onto the training.";
+          instructions_text.innerHTML = "Every time you hear either of these sounds, press the blue button on the tablet. Press next to move onto the training.";
           training = true;
         }
 
+    });
+
+    $("#sounds").on("touchend", function(){
+        birds.play();
+        sleep(1500).then(() => {
+          robot.play();
+        }); 
     });
 
     // $("#back").on("touchend", function(){

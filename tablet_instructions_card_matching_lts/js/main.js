@@ -61,7 +61,7 @@ $(document).ready(function() {
         else if(training == false){
           document.getElementById('image').src = 'instructions_2.png';
           var instructions_text = document.getElementById('instructions_text');
-          instructions_text.innerHTML = "If the cards are not a pair, then the other player takes a turn. We will continue to do this until the whole deck has been turned over. The winner is the player with the most cards at the end of the game!";
+          instructions_text.innerHTML = "If the cards are not a pair, then the other player takes a turn. We will continue to do this until the whole deck has been turned over. The winner is the player with the most cards at the end of the game! Press next to move onto the training.";
           training = true;
         }
 
