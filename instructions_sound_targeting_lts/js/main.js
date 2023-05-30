@@ -25,7 +25,7 @@ class DefaultWeb {
         // Respond
         this.tts_action.sendGoal({
             rawtext: {
-                text: "<mark name='doTrick trickName=alive_7'/>You will hear a selection of noises in no particular order over the course of 3 minutes. You should listen for either this sound", 
+                text: "<mark name='doTrick trickName=alive_7'/>You will hear a selection of noises in no particular order over the course of 3 minutes. <mark name='doTrick trickName=alive_3'/>You should listen for either this sound", 
                 lang_id: "en_GB"
             }
         }, (response) => {
@@ -53,7 +53,7 @@ class DefaultWeb {
         // Respond
         this.tts_action.sendGoal({
             rawtext: {
-                text: "Every time you hear either of these sounds, I want you to press the blue button on the tablet. Press replay to hear these instructions again. To just hear the target sounds, press the play target soudns button. Lastly, to begin the training session, press next.", 
+                text: "<mark name='doTrick trickName=alive_2'/>Every time you hear either of these sounds, I want you to press the blue button on the tablet. <mark name='doTrick trickName=alive_4'/>Press replay to hear these instructions again. To just hear the target sounds, <mark name='doTrick trickName=alive_5'/>press the play target sounds button. Lastly, to begin the training session, press next.", 
                 lang_id: "en_GB"
             }
         }, (response) => {

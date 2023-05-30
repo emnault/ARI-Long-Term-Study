@@ -25,7 +25,7 @@ class DefaultWeb {
         // Respond
         this.tts_action.sendGoal({
             rawtext: {
-                text: "<mark name='doTrick trickName=alive_7'/>Touch the category from the top row that corresponds to the image at the bottom of the screen. If you select correctly, <mark name='doTrick trickName=alive_1'/>you will hear a ding sound, and the bottom image will change. If you get it wrong, you can try again until you categorise it correctly. You will feel a vibration on your wrist for every 5 images you categorise. The goal is to complete the task both quickly and accurately. Press replay to hear these instructions again, or press next to move on to the training.", 
+                text: "<mark name='doTrick trickName=alive_7'/>Touch the category from the top row that corresponds to the image at the bottom of the screen.  If you select correctly, <mark name='doTrick trickName=alive_1'/>you will hear a ding sound, and the bottom image will change. If you get it wrong, <mark name='doTrick trickName=alive_5'/>you can try again until you categorise it correctly. You will feel a vibration on your wrist for <mark name='doTrick trickName=alive_4'/>every 5 images you categorise. The goal is to complete the task both quickly and accurately. <mark name='doTrick trickName=alive_2'/>Press replay to hear these instructions again, or press next to move on to the training.", 
                 lang_id: "en_GB"
             }
         }, (response) => {
