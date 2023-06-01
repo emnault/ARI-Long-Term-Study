@@ -118,7 +118,7 @@ class DefaultWeb {
 let default_web = new DefaultWeb();
 let moving = null;
 var shuffle;
-var randFeed;
+// var randFeed;
 var win;
 var reacTime;
 var avgRT;
@@ -138,7 +138,7 @@ $(document).ready(function() {
     audio.preload="auto";
     //Variables for calculating avg reaction time
     var rt_list = [];
-    var img_list = [];
+    // var img_list = [];
     var initRT;
     var start = new Date();
     var end = new Date();
@@ -229,336 +229,336 @@ $(document).ready(function() {
             img: "Cues/Italy.jpeg",
             id: "Countries",
         },
-        // {
-        //     img: "Cues/UK.jpeg",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Soup.jpeg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Salad.jpeg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Risotto.jpeg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Pasta.jpeg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/India.png",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Bear.jpeg",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Cat.jpeg",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Koala.jpeg",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Otter.jpeg",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Avocado.jpg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Belgium.png",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Bobcat.jpg",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Brazil.png",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Brocolli.jpg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Bulgaria.jpeg",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Canada.jpg",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Carrots.png",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Chameleon.png",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Cheese.jpg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Chicken.jpeg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Chile.png",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/China.png",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Chocolate.png",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Cookies.jpg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Donuts.jpg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Dragonfly.jpeg",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Duck.jpg",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Egypt.jpg",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Flamingo.jpeg",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Fried_Rice.jpeg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Frog.PNG",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Giraffe.jpeg",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Granola_Bar.jpeg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Grasshopper.png",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Haggis.png",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Hedgehog.png",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Hot_Dog.jpeg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Hummingbird.jpg",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Hungary.jpeg",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Iceland.jpg",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Ireland.jpg",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Jellyfish.jpg",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Kenya.png",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Korea.png",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Lemur.jpg",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Lion.jpeg",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Madagascar.png",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Malaysia.jpg",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Mexico.jpeg",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Monkey.png",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/New_Zealand.jpeg",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Owl.jpg",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Pancakes.jpeg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Parrot.jpg",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Pig.png",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Pizza.jpg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Poland.png",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Red_Panda.jpeg",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Russia.png",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Sandwich.jpeg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Sausage.jpg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Scottish_Breakfast.png",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Snail.jpg",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Snake.jpg",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/South_Africa.jpeg",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Souvlaki.jpg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Spinach.jpg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Steak.jpeg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Stew.jpg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Swan.jpg",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Sweden.jpeg",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Switzerland.jpeg",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Thailand.jpg",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Toast.jpeg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Turkey.jpeg",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Ukraine.jpg",
-        //     id: "Countries",
-        // },
-        // {
-        //     img: "Cues/Walnuts.jpg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Yogurt.jpg",
-        //     id: "Food",
-        // },
-        // {
-        //     img: "Cues/Zebra.jpeg",
-        //     id: "Animals",
-        // },
-        // {
-        //     img: "Cues/Zucchini.jpg",
-        //     id: "Food",
-        // },
+        {
+            img: "Cues/UK.jpeg",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Soup.jpeg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Salad.jpeg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Risotto.jpeg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Pasta.jpeg",
+            id: "Food",
+        },
+        {
+            img: "Cues/India.png",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Bear.jpeg",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Cat.jpeg",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Koala.jpeg",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Otter.jpeg",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Avocado.jpg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Belgium.png",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Bobcat.jpg",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Brazil.png",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Brocolli.jpg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Bulgaria.jpeg",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Canada.jpg",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Carrots.png",
+            id: "Food",
+        },
+        {
+            img: "Cues/Chameleon.png",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Cheese.jpg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Chicken.jpeg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Chile.png",
+            id: "Countries",
+        },
+        {
+            img: "Cues/China.png",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Chocolate.png",
+            id: "Food",
+        },
+        {
+            img: "Cues/Cookies.jpg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Donuts.jpg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Dragonfly.jpeg",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Duck.jpg",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Egypt.jpg",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Flamingo.jpeg",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Fried_Rice.jpeg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Frog.PNG",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Giraffe.jpeg",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Granola_Bar.jpeg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Grasshopper.png",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Haggis.png",
+            id: "Food",
+        },
+        {
+            img: "Cues/Hedgehog.png",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Hot_Dog.jpeg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Hummingbird.jpg",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Hungary.jpeg",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Iceland.jpg",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Ireland.jpg",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Jellyfish.jpg",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Kenya.png",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Korea.png",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Lemur.jpg",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Lion.jpeg",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Madagascar.png",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Malaysia.jpg",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Mexico.jpeg",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Monkey.png",
+            id: "Animals",
+        },
+        {
+            img: "Cues/New_Zealand.jpeg",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Owl.jpg",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Pancakes.jpeg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Parrot.jpg",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Pig.png",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Pizza.jpg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Poland.png",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Red_Panda.jpeg",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Russia.png",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Sandwich.jpeg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Sausage.jpg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Scottish_Breakfast.png",
+            id: "Food",
+        },
+        {
+            img: "Cues/Snail.jpg",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Snake.jpg",
+            id: "Animals",
+        },
+        {
+            img: "Cues/South_Africa.jpeg",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Souvlaki.jpg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Spinach.jpg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Steak.jpeg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Stew.jpg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Swan.jpg",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Sweden.jpeg",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Switzerland.jpeg",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Thailand.jpg",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Toast.jpeg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Turkey.jpeg",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Ukraine.jpg",
+            id: "Countries",
+        },
+        {
+            img: "Cues/Walnuts.jpg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Yogurt.jpg",
+            id: "Food",
+        },
+        {
+            img: "Cues/Zebra.jpeg",
+            id: "Animals",
+        },
+        {
+            img: "Cues/Zucchini.jpg",
+            id: "Food",
+        },
 
 
         ];
 //  shapes_demo.init();
   localStorage.clear();
-  default_web.firstFrase();
+  // default_web.firstFrase();
   
 
   shuffle = function(array){
@@ -599,19 +599,19 @@ $(document).ready(function() {
   }
 
   //rand feedback during interaction
-  randFeed = function(){
-    //0 = min, 3 = max
-        var idx = Math.floor(Math.random() * 3);
-        if (idx == 0){
-            default_web.keepGoing();
-        }
-        else if (idx == 1){
-            default_web.greatWork();
-        }
-        else { //idx = 2
-            default_web.youCanDoIt();
-        }
-    }
+  // randFeed = function(){
+  //   //0 = min, 3 = max
+  //       var idx = Math.floor(Math.random() * 3);
+  //       if (idx == 0){
+  //           default_web.keepGoing();
+  //       }
+  //       else if (idx == 1){
+  //           default_web.greatWork();
+  //       }
+  //       else { //idx = 2
+  //           default_web.youCanDoIt();
+  //       }
+  //   }
 
     win = function(){
       // endTime = new Date();
@@ -663,11 +663,11 @@ $(document).ready(function() {
   var firstImage = cues[0].img;
   var numCorrect = 0;
 
-  //Preload all images
-  for (let i = 0; i < cues.length; i++) {
-      img_list[i] = new Image();
-      img_list[i].src = cues[cueIdx].img;
-    }
+  // //Preload all images
+  // for (let i = 0; i < cues.length; i++) {
+  //     img_list[i] = new Image();
+  //     img_list[i].src = cues[cueIdx].img;
+  //   }
 
   document.getElementById("Cue").src=firstImage;
 
@@ -702,24 +702,24 @@ $(document).ready(function() {
         
         cueIdx++;
         if(cueIdx==cues.length-1){
-            default_web.finish();
+            // default_web.finish();
             win();
         }
         else{
             // document.getElementById("Cue").src=cues[cueIdx].img;
             // document.getElementById("Cue").style.top=60 + "%"; 
-            document.getElementById("Cue").src=img_list[cueIdx].src;
+            document.getElementById("Cue").src=cues[cueIdx].img;
             document.getElementById("Cue").style.top=60 + "%"; 
         }
-        if( (cueIdx==8) | (cueIdx==16)){
-            randFeed();
-        }
-        else if (cueIdx==82){
-            default_web.almostThere();
-        }
-        else if (cueIdx==95){
-            default_web.aFewLeft();
-        }
+        // if( (cueIdx==8) | (cueIdx==16)){
+        //     randFeed();
+        // }
+        // else if (cueIdx==82){
+        //     default_web.almostThere();
+        // }
+        // else if (cueIdx==95){
+        //     default_web.aFewLeft();
+        // }
   	   
   	});
 
@@ -746,18 +746,18 @@ $(document).ready(function() {
         
         cueIdx++;
         if(cueIdx==cues.length-1){
-            default_web.finish();
+            // default_web.finish();
             win();
         }
         else{
             // document.getElementById("Cue").src=cues[cueIdx].img;
             // document.getElementById("Cue").style.top=60 + "%"; 
-            document.getElementById("Cue").src=img_list[cueIdx].src;
+            document.getElementById("Cue").src=cues[cueIdx].img;
             document.getElementById("Cue").style.top=60 + "%";  
         }
-        if( (cueIdx==8) | (cueIdx==16)){
-            randFeed();
-        }
+        // if( (cueIdx==8) | (cueIdx==16)){
+        //     randFeed();
+        // }
        
     });
 
@@ -784,19 +784,19 @@ $(document).ready(function() {
         
         cueIdx++;
         if(cueIdx==cues.length-1){
-            default_web.finish();
+            // default_web.finish();
             win();
         }
         else{
             
             // document.getElementById("Cue").src=cues[cueIdx].img;
             // document.getElementById("Cue").style.top=60 + "%";  
-            document.getElementById("Cue").src=img_list[cueIdx].src;
+            document.getElementById("Cue").src=cues[cueIdx].img;
             document.getElementById("Cue").style.top=60 + "%"; 
         }
-        if( (cueIdx==8) | (cueIdx==16)){
-            randFeed();
-        }
+        // if( (cueIdx==8) | (cueIdx==16)){
+        //     randFeed();
+        // }
        
     });
 

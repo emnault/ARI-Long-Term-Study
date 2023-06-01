@@ -109,8 +109,8 @@ $(document).ready(function() {
     var i = 0;
 
     //Array of ints representing diff sounds
-    // var sounds = [0,0,0,1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,9,9,9,10,10,10,11,11,11,12,12,12];
-    var origSounds = [0,1,2,3,4,5,6,7,8,9,10,11,12]; //short version of array for testing purposes
+    var origSounds = [0,0,0,1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,9,9,9,10,10,10,11,11,11,12,12,12];
+    // var origSounds = [0,1,2,3,4,5,6,7,8,9,10,11,12]; //short version of array for testing purposes
     var sounds;
 
     //RT variables
@@ -180,7 +180,7 @@ $(document).ready(function() {
         else if ((index != 0) || (index != 8)){
             reacTime();
             window.numErrors++;
-            document.getElementById("title").innerHTML = "numErrors++";
+            // document.getElementById("title").innerHTML = "numErrors++";
         }     
     });
 
@@ -218,7 +218,7 @@ $(document).ready(function() {
         sleep(ms).then(() => {
             i++;
             if(i<sounds.length){
-                document.getElementById("title").innerHTML = sounds[i];
+                // document.getElementById("title").innerHTML = sounds[i];
                 playSound(sounds[i]);
                 nextSound(5000);
             }

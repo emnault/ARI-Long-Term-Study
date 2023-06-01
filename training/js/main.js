@@ -25,7 +25,7 @@ class DefaultWeb {
         // Respond
         this.tts_action.sendGoal({
             rawtext: {
-                text: "<mark name='doTrick trickName=alive_4'/>You may now practice the activity. Once you feel comfortable with how to play, please tell me and we will move on to the official round. <mark name='doTrick trickName=alive_5'/>Are you ready? ", 
+                text: "<mark name='doTrick trickName=alive_4'/>You may now practice the activity. Once you feel <mark name='doTrick trickName=alive_2'/>comfortable with how to play, please tell me and we will move on <mark name='doTrick trickName=alive_5'/>to the official round. Are you ready? ", 
                 lang_id: "en_GB"
             }
         }, (response) => {

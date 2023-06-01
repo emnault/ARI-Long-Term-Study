@@ -57,11 +57,8 @@ $(document).ready(function() {
 
       //Attempt #, num correct, num errors, RT
       data.addRows([
-        [1,  3, 0, 1.5],
-        [2,  3, 1, 5],
-        [3,  3, 0, 1.5],
-        [4,  3, 1, 1.5],
-        [5,  3, 0, 5]
+        [1,  5, 8, 2],
+
         // [6,  3, 1, 1.5]
       ]);
 
@@ -131,11 +128,7 @@ $(document).ready(function() {
 
       //Attempt #, num correct, num errors, RT
       data.addRows([
-        [1,  3, 1.6, 1.5],
-        [2,  0, 1.5, 1.8],
-        [3,  3, 3.1, 1.2],
-        [4,  1, 2.6, 1.4],
-        [5,  3, 2.4, 1.5]
+        [1,  3, 1.6, 1.5]
         // [6,  3, 1, 1.5]
       ]);
 
