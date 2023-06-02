@@ -118,11 +118,16 @@ class DefaultWeb {
 let default_web = new DefaultWeb();
 let moving = null;
 var shuffle;
-// var randFeed;
 var win;
 var reacTime;
 var avgRT;
 var hapticFeed;
+var fillImgArray;
+var preloadImage;
+var foodTouched;
+var animalsTouched;
+var countriesTouched;
+var cues_imgs = [];
 window.finalAvgRT = 0;
 window.numErrors = 0;
 window.secs = 0;
@@ -138,7 +143,6 @@ $(document).ready(function() {
     audio.preload="auto";
     //Variables for calculating avg reaction time
     var rt_list = [];
-    // var img_list = [];
     var initRT;
     var start = new Date();
     var end = new Date();
@@ -598,34 +602,7 @@ $(document).ready(function() {
         localStorage.setItem('reacTime', finalAvgRT);
   }
 
-  //rand feedback during interaction
-  // randFeed = function(){
-  //   //0 = min, 3 = max
-  //       var idx = Math.floor(Math.random() * 3);
-  //       if (idx == 0){
-  //           default_web.keepGoing();
-  //       }
-  //       else if (idx == 1){
-  //           default_web.greatWork();
-  //       }
-  //       else { //idx = 2
-  //           default_web.youCanDoIt();
-  //       }
-  //   }
-
     win = function(){
-      // endTime = new Date();
-      // var timeDiff = endTime - startTime; //in ms
-      // strip the ms
-      // timeDiff /= 1000;
-
-      // get seconds 
-      // var seconds = Math.round(timeDiff);
-      // console.log("Elapsed Time: " + seconds + " seconds");
-
-      // localStorage.setItem('time', seconds);
-
-
       //Set num errors and avg RT for displaying scores on next screen
       var endTimerDate = new Date();
       var endTimer = endTimerDate.getTime();
@@ -649,25 +626,37 @@ $(document).ready(function() {
     hapticFeed = function(){
 
         const req = new XMLHttpRequest();
-        req.open("POST", "http://192.168.1.4:2000/50AA100");
-        req.timeout = 200;
+        req.open("POST", "http://192.168.1.4:2000/");
+
+
+        req.timeout = 1000;
         req.ontimeout = (e) => {
             console.log("Timeout");
-            // document.getElementById("title").innerHTML = "Timeout";
+            document.getElementById("title").innerHTML = "Timeout";
         };
-        req.send();
+        req.send("50AA100");
 
     }
 
+    function fillImgArray()
+    {
+        for (var i = 0; i < cues.length; i++) {
+            preloadImage(cues[i].img, cues[i].id);
+        }
+    }
+
+    function preloadImage(path, category)
+    {
+        var img=new Image();
+        img.src=path;
+        img.id=category;
+        cues_imgs.push(img);
+    }
+
   var cues = shuffle(cues_pre_shuffle); //Shuffle cues
+  fillImgArray();
   var firstImage = cues[0].img;
   var numCorrect = 0;
-
-  // //Preload all images
-  // for (let i = 0; i < cues.length; i++) {
-  //     img_list[i] = new Image();
-  //     img_list[i].src = cues[cueIdx].img;
-  //   }
 
   document.getElementById("Cue").src=firstImage;
 
@@ -680,23 +669,28 @@ $(document).ready(function() {
    window.open("../scores_category_checker/index.html", "_self");
   });
 
-  $("#Animals").on("touchend", function(ev){
-      ev.preventDefault(); 
-        if(cues[cueIdx].id==="Animals"){
+  document.getElementById("Animals").addEventListener("click", animalsTouched);
+  document.getElementById("Food").addEventListener("click", foodTouched);
+  document.getElementById("Countries").addEventListener("click", countriesTouched);
+
+    function animalsTouched() {
+      if(cues[cueIdx].id==="Animals"){
             reacTime();
             audio.currentTime = 0;
             audio.play();
             numCorrect++;
-            if(numCorrect==5){
+            document.getElementById("title").innerHTML = "Num Correct: " + numCorrect;
+            if(numCorrect>=5){
                 hapticFeed();
-                // document.getElementById("title").innerHTML = "Haptic Feedback";
                 numCorrect = 0;
+                document.getElementById("title").innerHTML = "FEEDBACK Num Correct: " + numCorrect;
             }
         }
         else{
             reacTime();
             window.numErrors++;
             numCorrect = 0; //Reset to zero if wrong so only get buzz for every 5 IN A ROW
+            document.getElementById("title").innerHTML = "Num Correct: " + numCorrect;
             return;
         }        
         
@@ -706,40 +700,31 @@ $(document).ready(function() {
             win();
         }
         else{
-            // document.getElementById("Cue").src=cues[cueIdx].img;
-            // document.getElementById("Cue").style.top=60 + "%"; 
             document.getElementById("Cue").src=cues[cueIdx].img;
             document.getElementById("Cue").style.top=60 + "%"; 
         }
-        // if( (cueIdx==8) | (cueIdx==16)){
-        //     randFeed();
-        // }
-        // else if (cueIdx==82){
-        //     default_web.almostThere();
-        // }
-        // else if (cueIdx==95){
-        //     default_web.aFewLeft();
-        // }
-  	   
-  	});
 
-    $("#Food").on("touchend", function(ev){
-      ev.preventDefault(); 
+    }
+  
+
+    function foodTouched() {
         if(cues[cueIdx].id==="Food"){
             reacTime();
             audio.currentTime = 0;
             audio.play();
             numCorrect++;
-            if(numCorrect==5){
+            document.getElementById("title").innerHTML = "Num Correct: " + numCorrect;
+            if(numCorrect>=5){
                 hapticFeed();
-                // document.getElementById("title").innerHTML = "Haptic Feedback";
                 numCorrect = 0;
+                document.getElementById("title").innerHTML = "FEEDBACK Num Correct: " + numCorrect;
             }
         }
         else{
             reacTime(); //reaction time for selecting incorrect answer
             window.numErrors++;
             numCorrect = 0; //Reset to zero if wrong so only get buzz for every 5 IN A ROW
+            document.getElementById("title").innerHTML = "Num Correct: " + numCorrect;
             return;
         }
         
@@ -750,34 +735,31 @@ $(document).ready(function() {
             win();
         }
         else{
-            // document.getElementById("Cue").src=cues[cueIdx].img;
-            // document.getElementById("Cue").style.top=60 + "%"; 
             document.getElementById("Cue").src=cues[cueIdx].img;
             document.getElementById("Cue").style.top=60 + "%";  
         }
-        // if( (cueIdx==8) | (cueIdx==16)){
-        //     randFeed();
-        // }
-       
-    });
 
-    $("#Countries").on("touchend", function(ev){
-      ev.preventDefault(); 
+    }
+
+    function countriesTouched() {
         if(cues[cueIdx].id==="Countries"){
             reacTime();
             audio.currentTime = 0;
             audio.play();
             numCorrect++;
-            if(numCorrect==5){
+            document.getElementById("title").innerHTML = "Num Correct: " + numCorrect;
+            if(numCorrect>=5){
                 hapticFeed();
-                // document.getElementById("title").innerHTML = "Haptic Feedback";
+                
                 numCorrect = 0;
+                document.getElementById("title").innerHTML = "FEEDBACK Num Correct: " + numCorrect;
             }
         }
         else{
             reacTime();
             window.numErrors++;
             numCorrect = 0; //Reset to zero if wrong so only get buzz for every 5 IN A ROW
+            document.getElementById("title").innerHTML = "Num Correct: " + numCorrect;
             return;
         }
         
@@ -789,15 +771,10 @@ $(document).ready(function() {
         }
         else{
             
-            // document.getElementById("Cue").src=cues[cueIdx].img;
-            // document.getElementById("Cue").style.top=60 + "%";  
             document.getElementById("Cue").src=cues[cueIdx].img;
-            document.getElementById("Cue").style.top=60 + "%"; 
+            document.getElementById("Cue").style.top=60 + "%";  
         }
-        // if( (cueIdx==8) | (cueIdx==16)){
-        //     randFeed();
-        // }
-       
-    });
+
+    }
 
 });

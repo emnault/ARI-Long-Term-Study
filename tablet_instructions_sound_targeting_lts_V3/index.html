@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Games menu</title>
+	<link rel="icon" type="image/png" href="../common_mem_game/images/favicon-pal.png">
+	<!-- common -->
+	<link rel="stylesheet" href="../common_mem_game/style/Montserrat.css"> 
+	<link rel="stylesheet" href="../common_mem_game/style/style.css"> 
+	<!-- custom css -->
+	<link rel="stylesheet" href="style/style.css"> 
+	<!-- js -->
+	<script src="../common_mem_game/js/lib/jquery.js"></script>
+	<script src="../common_mem_game/js/common.js"></script>
+	<script type="module" src="js/main.js"></script>
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
+</head>
+<body>
+	<audio id="doorbell"></audio>
+	<audio id="typewriter"></audio>
+	<div class="gfg" id="title">Sound Targeting</div>
+	<div class="main-container apps-menu" style="display:none">
+		<div class="menu-content">
+					<img src="instructions_1.png" id="image" width="700" height="450"/>
+					<p id="instructions_text" style="font-size:30px">You will hear a selection of noises in no particular order over the course of 3 minutes. You should listen for either of the sounds that play when touching the Target Sounds button.</p>
+					<div class="bottom-btns">
+						<div class="margin">
+							<div class="big-green-btn" id="back">Back</div>
+						</div>
+						<div class="margin">
+							<div class="big-green-btn" id="sounds">Target Sounds</div>
+						</div>
+						<div class="margin">
+							<div class="big-green-btn" id="next">Next</div>
+						</div>
+				</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -123,6 +123,7 @@ var win;
 var reacTime;
 var avgRT;
 var hapticFeed;
+var sleep;
 var fillImgArray;
 var preloadImage;
 var foodTouched;
@@ -638,11 +639,14 @@ $(document).ready(function() {
       avgRT(); 
 
     }
+    sleep = function(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
     hapticFeed = function(){
 
         const req = new XMLHttpRequest();
-        req.open("POST", "http://192.168.1.4:2000/50AA100");
+        req.open("POST", "http://192.168.1.4:2000/");
 
 
         req.timeout = 1000;
@@ -650,7 +654,8 @@ $(document).ready(function() {
             console.log("Timeout");
             document.getElementById("title").innerHTML = "Timeout";
         };
-        req.send();
+        req.send("50AA100");
+
     }
 
     function fillImgArray()
@@ -715,8 +720,11 @@ $(document).ready(function() {
             win();
         }
         else{
-            document.getElementById("Cue").src=cues[cueIdx].img;
-            document.getElementById("Cue").style.top=60 + "%"; 
+            //sleep first to make it more consistent with slight lag you also get from tablet condition
+            sleep(500).then(() => { 
+                document.getElementById("Cue").src=cues[cueIdx].img;
+                document.getElementById("Cue").style.top=60 + "%"; 
+            });
         }
         if( (cueIdx==8) | (cueIdx==16)){
             randFeed();
@@ -758,8 +766,11 @@ $(document).ready(function() {
             win();
         }
         else{
-            document.getElementById("Cue").src=cues[cueIdx].img;
-            document.getElementById("Cue").style.top=60 + "%";  
+            //sleep first to make it more consistent with slight lag you also get from tablet condition
+            sleep(500).then(() => { 
+                document.getElementById("Cue").src=cues[cueIdx].img;
+                document.getElementById("Cue").style.top=60 + "%";  
+            });
         }
         if( (cueIdx==8) | (cueIdx==16)){
             randFeed();
@@ -795,9 +806,11 @@ $(document).ready(function() {
             win();
         }
         else{
-            
-            document.getElementById("Cue").src=cues[cueIdx].img;
-            document.getElementById("Cue").style.top=60 + "%";  
+            //sleep first to make it more consistent with slight lag you also get from tablet condition
+            sleep(500).then(() => { 
+                document.getElementById("Cue").src=cues[cueIdx].img;
+                document.getElementById("Cue").style.top=60 + "%";  
+            });
         }
         if( (cueIdx==8) | (cueIdx==16)){
             randFeed();
