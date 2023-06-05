@@ -211,7 +211,7 @@ $(document).ready(function() {
 			// console.log(str1);
 
 			//reaction time starting value after ARI speaks
-			this.sleep(2500).then(() => { 
+			this.sleep(2800).then(() => { 
 				start = new Date();
 				rt1 = start.getTime();
 			});
@@ -317,7 +317,7 @@ $(document).ready(function() {
 
 					var totalPairs = window.ariNumPairs + window.userNumPairs;
 					//if halfway through game have ari get every other pair correct
-					if(totalPairs>=5){
+					if(totalPairs>=4){
 						if(ariMatch < 2){
 							_.ariIncorrectPair();
 						}
@@ -534,7 +534,7 @@ $(document).ready(function() {
 			// document.getElementById("title").innerHTML = "Feedback";
 	        const req = new XMLHttpRequest();
 	        req.open("POST", "http://192.168.1.4:2000/50AA100");
-	        req.timeout = 2000;
+	        req.timeout = 1000;
 	        req.ontimeout = (e) => {
 	            console.log("Timeout");
 	            // document.getElementById("title").innerHTML = "Timeout";

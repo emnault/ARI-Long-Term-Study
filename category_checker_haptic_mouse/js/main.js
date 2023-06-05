@@ -121,6 +121,7 @@ var shuffle;
 var randFeed;
 var win;
 var reacTime;
+var restartTimer;
 var avgRT;
 var hapticFeed;
 var sleep;
@@ -591,7 +592,11 @@ $(document).ready(function() {
         initRT = rt2-rt1;
         rt_list.push(initRT);
         console.log("RT List: " + rt_list);
-        //Reset start time to calc next reaction time.
+        
+  }
+
+  restartTimer = function(){
+    //Reset start time to calc next reaction time.
         start = new Date();
         rt1 = start.getTime();
   }
@@ -645,16 +650,29 @@ $(document).ready(function() {
 
     hapticFeed = function(){
 
+        // const req = new XMLHttpRequest();
+        // req.open("POST", "http://192.168.1.4:2000");
+        // console.log("open");
+        // req.timeout = 1000;
+        // req.ontimeout = (e) => {
+        //     console.log("Timeout");
+        //     document.getElementById("title").innerHTML = "Timeout";
+        // };
+        // req.send();
+        // console.log("buzz");
+
         const req = new XMLHttpRequest();
-        req.open("POST", "http://192.168.1.4:2000/");
-
-
-        req.timeout = 1000;
+        req.open("POST", "http://192.168.1.4:2000/50AA100");
+        req.timeout = 2000;
         req.ontimeout = (e) => {
             console.log("Timeout");
-            document.getElementById("title").innerHTML = "Timeout";
+            // document.getElementById("title").innerHTML = "Timeout";
         };
-        req.send("50AA100");
+        req.send();
+        // return fetch("http://192.168.1.4:2000/50AA100", {method: "POST"})
+
+        
+
 
     }
 
@@ -699,18 +717,18 @@ $(document).ready(function() {
             audio.currentTime = 0;
             audio.play();
             numCorrect++;
-            document.getElementById("title").innerHTML = "Num Correct: " + numCorrect;
+            // document.getElementById("title").innerHTML = "Num Correct: " + numCorrect;
             if(numCorrect>=5){
                 hapticFeed();
                 numCorrect = 0;
-                document.getElementById("title").innerHTML = "FEEDBACK Num Correct: " + numCorrect;
+                // document.getElementById("title").innerHTML = "FEEDBACK Num Correct: " + numCorrect;
             }
         }
         else{
             reacTime();
             window.numErrors++;
             numCorrect = 0; //Reset to zero if wrong so only get buzz for every 5 IN A ROW
-            document.getElementById("title").innerHTML = "Num Correct: " + numCorrect;
+            // document.getElementById("title").innerHTML = "Num Correct: " + numCorrect;
             return;
         }        
         
@@ -722,11 +740,12 @@ $(document).ready(function() {
         else{
             //sleep first to make it more consistent with slight lag you also get from tablet condition
             sleep(500).then(() => { 
+                restartTimer();
                 document.getElementById("Cue").src=cues[cueIdx].img;
                 document.getElementById("Cue").style.top=60 + "%"; 
             });
         }
-        if( (cueIdx==8) | (cueIdx==16)){
+        if( (cueIdx==16) | (cueIdx==31) | (cueIdx==47) | (cueIdx==65)){
             randFeed();
         }
         else if (cueIdx==82){
@@ -744,18 +763,18 @@ $(document).ready(function() {
             audio.currentTime = 0;
             audio.play();
             numCorrect++;
-            document.getElementById("title").innerHTML = "Num Correct: " + numCorrect;
+            // document.getElementById("title").innerHTML = "Num Correct: " + numCorrect;
             if(numCorrect>=5){
                 hapticFeed();
                 numCorrect = 0;
-                document.getElementById("title").innerHTML = "FEEDBACK Num Correct: " + numCorrect;
+                // document.getElementById("title").innerHTML = "FEEDBACK Num Correct: " + numCorrect;
             }
         }
         else{
             reacTime(); //reaction time for selecting incorrect answer
             window.numErrors++;
             numCorrect = 0; //Reset to zero if wrong so only get buzz for every 5 IN A ROW
-            document.getElementById("title").innerHTML = "Num Correct: " + numCorrect;
+            // document.getElementById("title").innerHTML = "Num Correct: " + numCorrect;
             return;
         }
         
@@ -768,12 +787,19 @@ $(document).ready(function() {
         else{
             //sleep first to make it more consistent with slight lag you also get from tablet condition
             sleep(500).then(() => { 
+                restartTimer();
                 document.getElementById("Cue").src=cues[cueIdx].img;
                 document.getElementById("Cue").style.top=60 + "%";  
             });
         }
-        if( (cueIdx==8) | (cueIdx==16)){
+        if( (cueIdx==16) | (cueIdx==31) | (cueIdx==47) | (cueIdx==65)){
             randFeed();
+        }
+        else if (cueIdx==82){
+            default_web.almostThere();
+        }
+        else if (cueIdx==95){
+            default_web.aFewLeft();
         }
     }
 
@@ -783,19 +809,19 @@ $(document).ready(function() {
             audio.currentTime = 0;
             audio.play();
             numCorrect++;
-            document.getElementById("title").innerHTML = "Num Correct: " + numCorrect;
+            // document.getElementById("title").innerHTML = "Num Correct: " + numCorrect;
             if(numCorrect>=5){
                 hapticFeed();
                 
                 numCorrect = 0;
-                document.getElementById("title").innerHTML = "FEEDBACK Num Correct: " + numCorrect;
+                // document.getElementById("title").innerHTML = "FEEDBACK Num Correct: " + numCorrect;
             }
         }
         else{
             reacTime();
             window.numErrors++;
             numCorrect = 0; //Reset to zero if wrong so only get buzz for every 5 IN A ROW
-            document.getElementById("title").innerHTML = "Num Correct: " + numCorrect;
+            // document.getElementById("title").innerHTML = "Num Correct: " + numCorrect;
             return;
         }
         
@@ -808,12 +834,19 @@ $(document).ready(function() {
         else{
             //sleep first to make it more consistent with slight lag you also get from tablet condition
             sleep(500).then(() => { 
+                restartTimer();
                 document.getElementById("Cue").src=cues[cueIdx].img;
                 document.getElementById("Cue").style.top=60 + "%";  
             });
         }
-        if( (cueIdx==8) | (cueIdx==16)){
+        if( (cueIdx==16) | (cueIdx==31) | (cueIdx==47) | (cueIdx==65)){
             randFeed();
+        }
+        else if (cueIdx==82){
+            default_web.almostThere();
+        }
+        else if (cueIdx==95){
+            default_web.aFewLeft();
         }
     }
 

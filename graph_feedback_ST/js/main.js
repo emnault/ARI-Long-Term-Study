@@ -56,10 +56,17 @@ $(document).ready(function() {
       data.addColumn('number', 'Reaction Time');
 
       //Attempt #, num correct, num errors, RT
+
+      //6. 480
+      // data.addRows([
+      //   [1,  5, 8, 2],
+      //   [2,  3, 1, 1.5]
+      // ]);
+
+      //11. 676
       data.addRows([
         [1,  5, 8, 2],
-
-        // [6,  3, 1, 1.5]
+        [2,  3, 1, 1.5]
       ]);
 
       var classicOptions = {
@@ -127,10 +134,18 @@ $(document).ready(function() {
       data.addColumn('number', 'Reaction Time');
 
       //Attempt #, num correct, num errors, RT
+      //6. 480
+      // data.addRows([
+      //   [1,  5, 8, 2],
+      //   [2,  3, 1, 1.5]
+      // ]);
+
+      //11. 676
       data.addRows([
-        [1,  3, 1.6, 1.5]
-        // [6,  3, 1, 1.5]
+        [1,  5, 8, 2],
+        [2,  3, 1, 1.5]
       ]);
+
 
       var classicOptions = {
         title: 'Category Checker Feedback',
@@ -197,14 +212,18 @@ $(document).ready(function() {
       data.addColumn('number', 'Reaction Time');
 
       //Attempt #, num correct, num errors, RT
-      data.addRows([
-        [1,  8, 0.8, 1.5],
-        [2,  6, 1.5, 1.5],
-        [3,  7, 0.9, 1.5],
-        [4,  8, 1.8, 1.5],
-        [5,  6, 1.3, 1.8]
-        // [6,  3, 1, 1.5]
-      ]);
+      //6. 480
+      // data.addRows([
+      //   [1,  5, 8, 2],
+      //   [2,  3, 1, 1.5]
+      // ]);
+
+      //11. 676
+      // data.addRows([
+      //   [1,  5, 8, 2],
+      //   [2,  3, 1, 1.5]
+      // ]);
+
 
       var classicOptions = {
         title: 'Card Matching Feedback',

@@ -152,7 +152,7 @@ $(document).ready(function() {
   // });
   
   $("#next").on("touchend", function(){
-    window.open("../scores_card_matching/index.html", "_self");
+    window.open("../tablet_scores_card_matching/index.html", "_self");
 
   });
 });
@@ -221,6 +221,7 @@ $(document).ready(function() {
 		cardClicked: function(){
 			var _ = Memory; //Why is this here...saving instance of game?
 			var $card = $(this);
+			document.getElementById("title").innerHTML = "Card Matching Activity";
 
 			// console.log("TESTING");
 			var str1 = JSON.stringify($(this).attr("data-id"));
@@ -314,12 +315,25 @@ $(document).ready(function() {
 						Memory.paused = false;
 					});
 
-					if(ariMatch < 3){
-						_.ariIncorrectPair();
+					var totalPairs = window.ariNumPairs + window.userNumPairs;
+					//if halfway through game have ari get every other pair correct
+					if(totalPairs>=4){
+						if(ariMatch < 2){
+							_.ariIncorrectPair();
+						}
+						else{
+							_.ariCorrectPair();
+
+						}
 					}
 					else{
-						_.ariCorrectPair();
+						if(ariMatch < 3){
+							_.ariIncorrectPair();
+						}
+						else{
+							_.ariCorrectPair();
 
+						}
 					}
 
 					
@@ -529,6 +543,7 @@ $(document).ready(function() {
 
 		win: function(){
 			this.paused = true;
+
 			setTimeout(function(){
 				// console.log("ARI's Score: ");
 				// var strARI = JSON.stringify(window.ariNumPairs);
@@ -563,11 +578,14 @@ $(document).ready(function() {
 				localStorage.setItem('ariNumPairs', ariNumPairs);
 				localStorage.setItem('userNumPairs', userNumPairs);
 
+
+
 				// console.log("SAYING WIN FRASE");
                 // default_web.winFrase();
 				// Memory.showModal();
 				// Memory.$game.fadeOut();
 			}, 1000);
+			document.getElementById("title").innerHTML = "Press next to continue.";
 		},
 
 		// calcAvgRT: function(){

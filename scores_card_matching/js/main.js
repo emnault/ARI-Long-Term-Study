@@ -36,7 +36,7 @@ class DefaultWeb {
         // Respond
         this.tts_action.sendGoal({
             rawtext: {
-                text: "<mark name='doTrick trickName=bow'/>Great game! I enjoyed playing with you, and I hope you had fun too!", 
+                text: "<mark name='doTrick trickName=bow'/>Great game! I enjoyed playing with you, and I hope you had fun too! <mark name='doTrick trickName=show_right'/>Here is our performance scores.", 
                 lang_id: "en_GB"
             }
         }, (response) => {
@@ -48,7 +48,7 @@ class DefaultWeb {
 let default_web = new DefaultWeb();
 
 $(document).ready(function() {
-  default_web.firstFrase();
+  default_web.secondFrase();
 
   document.getElementById("duration").innerHTML = "Time: " + localStorage.getItem('mins') + " min " + localStorage.getItem('secs') + " secs.";
   document.getElementById("ari-score").innerHTML = "ARI: " + localStorage.getItem('ariNumPairs') + " pairs.";
@@ -78,8 +78,8 @@ $(document).ready(function() {
       },
 
       showModal: function(){
-        console.log("IN SHOW MODAL");
-        default_web.secondFrase();
+        // console.log("IN SHOW MODAL");
+        // default_web.secondFrase();
         this.$overlay.show();
         this.$modal.fadeIn("slow");
         localStorage.clear();

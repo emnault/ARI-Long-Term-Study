@@ -1,0 +1,90 @@
+
+<!DOCTYPE HTML>
+<html>
+ 
+<head>
+    <title>Category Checker</title>
+
+    <!-- common -->
+    <link rel="stylesheet" href="../common_mem_game/style/Montserrat.css"> 
+    <link rel="stylesheet" href="../common_mem_game/style/style.css"> 
+    <!-- custom css -->
+    <link rel="stylesheet" href="style/style.css"> 
+    <!-- js -->
+    <script src="../common_mem_game/js/lib/jquery.js"></script>
+    <script src="../common_mem_game/js/common.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+
+</head>
+ 
+<body>
+
+<div class="gfg" id="title">Category Checker</div>
+     
+        <div class="horizontal-flex-container">
+
+            <div class="img-container">
+        		<img style='border:6px solid #42f593' src="Categories/Food.jpg" alt="Food" id="Food" ondragover="allowDrop(event)" ontouchend="touchend(event)"
+                />
+                    <p>Food</p>
+
+            </div>
+
+            <div class="img-container">
+                <img style='border:6px solid #B5D5F5' src="Categories/Animals.jpg" alt="Animals" id="Animals" ondragover="allowDrop(event)" ontouchend="touchend(event)"
+                />
+                <p>Animals</p>
+
+            </div>
+
+            <div class="img-container">
+                <img style='border:6px solid #BEA7CC' src="Categories/Countries.jpg" alt="Countries" id="Countries" ondragover="allowDrop(event)" ontouchend="touchend(event)" 
+                />
+                <p>Countries</p>
+
+
+           </div>
+
+        </div>
+
+        <div class="img-container">
+            
+
+                <img style='border:6px solid #f54266' src="Cues/Highland_Cow.jpg" alt="Cue" id="Cue" class="cueheight" draggable="true" ondragstart="dragStart(event)" ontouchstart="touchstart(event)" ontouchmove="touchmove(event)"
+                />
+            <div class="cue-text-height">
+                <p>  </p>
+            </div>
+
+        </div>
+
+</body>
+
+    <div class="bottom-btns">
+        <!-- <div class="big-green-btn" id="back">BACK</div> -->
+        <div class="big-green-btn" id="next">NEXT</div>
+        
+    </div>
+ 
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
