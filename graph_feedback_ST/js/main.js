@@ -25,7 +25,7 @@ class DefaultWeb {
         // Respond
         this.tts_action.sendGoal({
             rawtext: {
-                text: "<mark name='doTrick trickName=alive_6'/>Here is your data", 
+                text: "<mark name='doTrick trickName=open_hands_out'/>Here is an overview of your performance up to this point in our journey. Great work!<mark name='doTrick trickName=alive_3'/>", 
                 lang_id: "en_GB"
             }
         }, (response) => {
@@ -41,6 +41,8 @@ class DefaultWeb {
 let default_web = new DefaultWeb();
 
 $(document).ready(function() {
+
+    default_web.firstFrase();
 
     google.charts.load('current', {'packages':['line', 'corechart']});
     google.charts.setOnLoadCallback(drawCMChart);
