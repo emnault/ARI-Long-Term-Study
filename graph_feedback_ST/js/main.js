@@ -53,23 +53,24 @@ $(document).ready(function() {
 
       var data = new google.visualization.DataTable();
       data.addColumn('number', 'Attempts');
-      data.addColumn('number', '# Correct (out of #)');
+      data.addColumn('number', '# Correct (out of 6)');
       data.addColumn('number', 'Errors');
       data.addColumn('number', 'Reaction Time');
 
       //Attempt #, num correct, num errors, RT
 
       //6. 480
-      // data.addRows([
-      //   [1,  5, 8, 2],
-      //   [2,  3, 1, 1.5]
-      // ]);
+      data.addRows([
+        [1,  3, 0, 1.97],
+        [2,  6, 3, 2.71]
+        //4/6 2 2.01
+      ]);
 
       //11. 676
-      data.addRows([
-        [1,  5, 8, 2],
-        [2,  3, 1, 1.5]
-      ]);
+      // data.addRows([
+      //   [1,  5, 2, 1.99],
+      //   [2,  6, 3, 2.26]
+      // ]);
 
       var classicOptions = {
         title: 'Sound Targeting Feedback',
@@ -99,7 +100,7 @@ $(document).ready(function() {
             fontSize: 24 
           },
           title: 'Attempts',
-          ticks: [1, 2, 3, 4, 5, 6]
+          ticks: [1, 2, 3, 4, 5, 6, 7, 8]
         },
         vAxis: {
           viewWindow: {
@@ -135,18 +136,18 @@ $(document).ready(function() {
       data.addColumn('number', 'Errors');
       data.addColumn('number', 'Reaction Time');
 
-      //Attempt #, num correct, num errors, RT
+      //Attempt #, duration, num errors, RT
       //6. 480
-      // data.addRows([
-      //   [1,  5, 8, 2],
-      //   [2,  3, 1, 1.5]
-      // ]);
+      data.addRows([
+        [1,  3.02, 2, 1.85], //3 min 1 sec
+        [2,  2, 2.85, 1.75] //2 min 51 secs
+      ]);
 
       //11. 676
-      data.addRows([
-        [1,  5, 8, 2],
-        [2,  3, 1, 1.5]
-      ]);
+      // data.addRows([
+      //   [1,  3.95, 0, 2.44],//3 min 57 secs
+      //   [2,  2.90, 0, 1.78] //2 min 54 secs
+      // ]);
 
 
       var classicOptions = {
@@ -177,7 +178,7 @@ $(document).ready(function() {
             fontSize: 24 
           },
           title: 'Attempts',
-          ticks: [1, 2, 3, 4, 5, 6]
+          ticks: [1, 2, 3, 4, 5, 6, 7, 8]
         },
         vAxis: {
           // viewWindow: {
@@ -255,7 +256,7 @@ $(document).ready(function() {
             fontSize: 24 
           },
           title: 'Attempts',
-          ticks: [1, 2, 3, 4, 5, 6]
+          ticks: [1, 2, 3, 4, 5, 6, 7, 8]
         },
         vAxis: {
           // viewWindow: {
