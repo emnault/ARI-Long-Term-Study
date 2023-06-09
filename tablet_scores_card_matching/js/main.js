@@ -79,7 +79,7 @@ $(document).ready(function() {
 
       showModal: function(){
         console.log("IN SHOW MODAL");
-        default_web.secondFrase();
+        // default_web.secondFrase();
         this.$overlay.show();
         this.$modal.fadeIn("slow");
         localStorage.clear();

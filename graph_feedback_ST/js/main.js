@@ -58,13 +58,24 @@ $(document).ready(function() {
       data.addColumn('number', 'Reaction Time');
 
       //Attempt #, num correct, num errors, RT
+      //1. 974
+      data.addRows([
+        [1, 5, 3, 2.11], 
+        [2, 6, 2, 1.86]
+      ]);
+
+      //3. 826
+      // data.addRows([
+      //   [1,  4, 6, 2.22], 
+      //   [2,  6, 3, 2.27] 
+      // ]);
 
       //6. 480
-      data.addRows([
-        [1,  3, 0, 1.97],
-        [2,  6, 3, 2.71]
-        //4/6 2 2.01
-      ]);
+      // data.addRows([
+      //   [1,  3, 0, 1.97],
+      //   [2,  6, 3, 2.71]
+      //   //4/6 2 2.01
+      // ]);
 
       //11. 676
       // data.addRows([
@@ -137,11 +148,23 @@ $(document).ready(function() {
       data.addColumn('number', 'Reaction Time');
 
       //Attempt #, duration, num errors, RT
-      //6. 480
-      data.addRows([
-        [1,  3.02, 2, 1.85], //3 min 1 sec
-        [2,  2, 2.85, 1.75] //2 min 51 secs
-      ]);
+
+      //1. 974
+      // data.addRows([
+      //   [1, , , ], //  min  sec
+      //   [2, , , ] //  min  secs
+      // ]);
+
+      //3. 826
+      // data.addRows([
+      //   [1, 3.25, 0, 1.52], // 3 min 15 sec
+      //   [2, 3.15, 1, 1.44] // 3 min 9 secs
+      // ]);
+      // //6. 480
+      // data.addRows([
+      //   [1,  3.02, 2, 1.85], //3 min 1 sec
+      //   [2,  2, 2.85, 1.75] //2 min 51 secs
+      // ]);
 
       //11. 676
       // data.addRows([
@@ -210,16 +233,23 @@ $(document).ready(function() {
 
       var data = new google.visualization.DataTable();
       data.addColumn('number', 'Attempts');
-      data.addColumn('number', '# Pairs');
       data.addColumn('number', 'Duration');
+      data.addColumn('number', '# Pairs (out of 10)');
       data.addColumn('number', 'Reaction Time');
 
       //Attempt #, num correct, num errors, RT
-      //6. 480
+
+      //1. 974
       // data.addRows([
-      //   [1,  5, 8, 2],
-      //   [2,  3, 1, 1.5]
+      //   [1, 2.7, 6, 5.44], // 2 min 42 secs
+      //   [2, 2.68, 6, 4.83] // 2 min 41 secs
       // ]);
+
+      //6. 480
+      data.addRows([
+        [1,  5, 8, 2],
+        [2,  3, 1, 1.5]
+      ]);
 
       //11. 676
       // data.addRows([
@@ -244,8 +274,8 @@ $(document).ready(function() {
         },
         vAxes: {
           // Adds titles to each axis.
-          0: {title: 'Number of Pairs'},
-          1: {title: 'Duration (mins) / \nReaction Time (secs)'}
+          0: {title: 'Duration (mins)'},
+          1: {title: 'Number of Pairs / \nReaction Time (secs)'}
           
         },
         hAxis: {
