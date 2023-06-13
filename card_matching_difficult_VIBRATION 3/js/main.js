@@ -533,7 +533,7 @@ $(document).ready(function() {
 		hapticFeed: function(){
 			// document.getElementById("title").innerHTML = "Feedback";
 	        const req = new XMLHttpRequest();
-	        req.open("POST", "http://192.168.1.4:2000/50AA100");
+	        req.open("POST", "http://192.168.1.3:2000/50AA100");
 	        req.timeout = 1000;
 	        req.ontimeout = (e) => {
 	            console.log("Timeout");
