@@ -114,12 +114,12 @@ $(document).ready(function() {
   // Add event listeners
     $("#replay").on("touchend", function(){
    // parent.switchConfig("memory_game");
-    window.open("../instructions_cat_check/index.html", "_self");
+    window.open("../instructions_sound_targeting_lts_V3/index.html", "_self");
   });
     $("#sounds").on("touchend", function(){
-      book.play();
+      doorbell.play();
       sleep(1500).then(() => {
-        carHorn.play();
+        typewriter.play();
       }); 
    });
     $("#next").on("touchend", function(){

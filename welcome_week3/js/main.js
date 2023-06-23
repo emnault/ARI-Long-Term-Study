@@ -25,7 +25,7 @@ class DefaultWeb {
         // Respond
         this.tts_action.sendGoal({
             rawtext: {
-                text: "<mark name='doTrick trickName=jasons_wave'/>Hello, good to see you again. Welcome to week 3 of our cognitive training sessions! We will begin with the instructions <mark name='doTrick trickName=alive_5'/>for our first activity of the day. Press the button to get started!", 
+                text: "<mark name='doTrick trickName=jasons_wave'/>Hello, good to see you again. Welcome to the third session of our cognitive training journey! We will begin with the instructions <mark name='doTrick trickName=alive_5'/>for our first activity of the day!", 
                 lang_id: "en_GB"
             }
         }, (response) => {
