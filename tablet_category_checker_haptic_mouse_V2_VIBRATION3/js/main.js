@@ -190,7 +190,7 @@ $(document).ready(function() {
         },
 
         {
-            img: "Cues/bed.jpeg",
+            img: "Cues/bed.png",
             id: "furniture",
         },
 
@@ -253,7 +253,7 @@ $(document).ready(function() {
             id: "furniture",
         },
         {
-            img: "Cues/couch.jpeg",
+            img: "Cues/couch.png",
             id: "furniture",
         },
         {
@@ -273,7 +273,7 @@ $(document).ready(function() {
             id: "furniture",
         },
         {
-            img: "Cues/desk.jpeg",
+            img: "Cues/desk.png",
             id: "furniture",
         },
         {
